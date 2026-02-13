@@ -1,26 +1,74 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="https://i.ibb.co/yFHW1DxL/Gemini-CMA-logo-Photoroom.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- TODO: Set the document title to the name of your application -->
-    <title>Lovable App</title>
-    <meta name="description" content="Lovable Generated Project" />
-    <meta name="author" content="Lovable" />
+    
+    <!-- FONT AWESOME -->
+    <link
+     rel="stylesheet"
+     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
 
-    <!-- TODO: Update og:title to match your application name -->
-    <meta property="og:title" content="Lovable App" />
-    <meta property="og:description" content="Lovable Generated Project" />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <title>Painel do Gestor - Câmara Municipal de Araripe</title>
+    <meta name="description" content="Painel do Gestor - Câmara Municipal de Araripe - Gestão de documentos digitalizados" />
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@Lovable" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+      #initial-loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: #f9fafb;
+        z-index: 9999;
+        transition: opacity 0.5s ease;
+      }
+      .spinner {
+        width: 50px;
+        height: 50px;
+        border: 5px solid #e5e7eb;
+        border-top: 5px solid #15803d;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    </style>
   </head>
-
   <body>
+    <div id="initial-loader">
+      <div class="spinner"></div>
+      <p style="margin-top: 20px; color: #15803d; font-family: 'Inter', sans-serif; font-weight: 600;">
+        Câmara Municipal de Araripe
+      </p>
+    </div>
+
     <div id="root"></div>
+
     <script type="module" src="/src/main.tsx"></script>
+
+    <script>
+      window.addEventListener('load', function() {
+        const loader = document.getElementById('initial-loader');
+        if (loader) {
+          loader.style.opacity = '0';
+          setTimeout(() => {
+            loader.style.display = 'none';
+          }, 500);
+        }
+      });
+    </script>
   </body>
 </html>

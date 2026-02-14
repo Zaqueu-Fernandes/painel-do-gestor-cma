@@ -107,20 +107,21 @@ const AnaliseFinanceira = ({ fazerLogout, filtros, setFiltros }: AnaliseFinancei
       y = 40;
     }
 
-    doc.setFontSize(12);
+    // Subtotais em linha
+    doc.setFontSize(10);
     doc.setFont('helvetica', 'bold');
-    doc.text('Resumo Financeiro:', 14, y);
-    y += 10;
-
+    doc.text('Subtotais:', 14, y);
+    y += 6;
     doc.setFont('helvetica', 'normal');
-    doc.text(`Receitas: ${formatarMoeda(dadosGraficos.totais.receitas)}`, 14, y);
+    doc.setFontSize(9);
+    const subtotaisTexto = `Receitas: ${formatarMoeda(dadosGraficos.totais.receitas)}  |  Desp. Bruta: ${formatarMoeda(dadosGraficos.totais.despesaBruta)}  |  Deduções: ${formatarMoeda(dadosGraficos.totais.deducoes)}  |  Desp. Líquida: ${formatarMoeda(dadosGraficos.totais.despesaLiquida)}`;
+    doc.text(subtotaisTexto, 14, y);
     y += 8;
-    doc.text(`Despesa Bruta: ${formatarMoeda(dadosGraficos.totais.despesaBruta)}`, 14, y);
-    y += 8;
-    doc.text(`Deduções: ${formatarMoeda(dadosGraficos.totais.deducoes)}`, 14, y);
-    y += 8;
-    doc.text(`Despesa Líquida: ${formatarMoeda(dadosGraficos.totais.despesaLiquida)}`, 14, y);
-    y += 15;
+    doc.setLineWidth(0.2);
+    doc.line(14, y, 283, y);
+    y += 6;
+
+    doc.setFontSize(12);
 
     doc.setFont('helvetica', 'bold');
     doc.text('Top 10 Credores:', 14, y);

@@ -34,7 +34,7 @@ export async function cadastrarUsuario(dados: {
         telefone: dados.telefone,
         cargo: dados.cargo,
         senha: dados.senha,
-        status: 'PENDENTE'
+        status: false
       }]);
 
     if (error) throw error;
@@ -185,18 +185,34 @@ export async function buscarDadosBase(filtros: Filtros = {} as Filtros) {
 }
 
 // ========================================
-// BUSCAR ANOS DISPONÍVEIS NA BASE
+// BUSCAR ANOS DISPONÍVEIS NA BASE (com paginação)
 // ========================================
 export async function buscarAnosDisponiveis() {
   try {
-    const { data, error } = await supabase
-      .from('base')
-      .select('data');
+    let allData: any[] = [];
+    let from = 0;
+    const pageSize = 1000;
+    let hasMore = true;
 
-    if (error) throw error;
+    while (hasMore) {
+      const { data, error } = await supabase
+        .from('base')
+        .select('data')
+        .range(from, from + pageSize - 1);
+
+      if (error) throw error;
+
+      if (data && data.length > 0) {
+        allData = allData.concat(data);
+        from += pageSize;
+        if (data.length < pageSize) hasMore = false;
+      } else {
+        hasMore = false;
+      }
+    }
 
     const anos = [...new Set(
-      (data || []).map(item => new Date(item.data).getFullYear()).filter(a => !isNaN(a))
+      allData.map(item => new Date(item.data).getFullYear()).filter(a => !isNaN(a))
     )].sort((a, b) => b - a);
 
     return anos;
@@ -207,18 +223,69 @@ export async function buscarAnosDisponiveis() {
 }
 
 // ========================================
-// BUSCAR CATEGORIAS E CREDORES ÚNICOS
+// BUSCAR CATEGORIAS E CREDORES (com filtros ativos e paginação)
 // ========================================
-export async function buscarFiltrosDisponiveis() {
+export async function buscarFiltrosDisponiveis(filtrosAtivos?: Partial<Filtros>) {
   try {
-    const { data, error } = await supabase
+    let query = supabase
       .from('base')
       .select('categoria, credor');
 
-    if (error) throw error;
+    // Aplicar filtros ativos para tornar os filtros dinâmicos
+    if (filtrosAtivos) {
+      if (filtrosAtivos.dataInicial && filtrosAtivos.dataFinal) {
+        query = query.gte('data', filtrosAtivos.dataInicial).lte('data', filtrosAtivos.dataFinal);
+      } else if (filtrosAtivos.mes && filtrosAtivos.ano) {
+        const mesNum = String(filtrosAtivos.mes).padStart(2, '0');
+        const anoNum = String(filtrosAtivos.ano);
+        const dataInicio = `${anoNum}-${mesNum}-01`;
+        let proximoMes = parseInt(filtrosAtivos.mes) + 1;
+        let proximoAno = parseInt(filtrosAtivos.ano);
+        if (proximoMes > 12) { proximoMes = 1; proximoAno += 1; }
+        const dataFim = `${proximoAno}-${String(proximoMes).padStart(2, '0')}-01`;
+        query = query.gte('data', dataInicio).lt('data', dataFim);
+      } else if (filtrosAtivos.ano && !filtrosAtivos.mes) {
+        const dataInicio = `${filtrosAtivos.ano}-01-01`;
+        const dataFim = `${parseInt(filtrosAtivos.ano) + 1}-01-01`;
+        query = query.gte('data', dataInicio).lt('data', dataFim);
+      }
 
-    const categorias = [...new Set((data || []).map(item => item.categoria).filter(Boolean))].sort();
-    const credores = [...new Set((data || []).map(item => item.credor).filter(Boolean))].sort();
+      if (filtrosAtivos.natureza && filtrosAtivos.natureza !== 'TODOS') {
+        query = query.eq('natureza', filtrosAtivos.natureza);
+      }
+      if (filtrosAtivos.categoria) {
+        query = query.eq('categoria', filtrosAtivos.categoria);
+      }
+      if (filtrosAtivos.credor) {
+        query = query.eq('credor', filtrosAtivos.credor);
+      }
+      if (filtrosAtivos.docCaixa) {
+        query = query.ilike('doc_caixa', `%${filtrosAtivos.docCaixa}%`);
+      }
+      if (filtrosAtivos.descricao) {
+        query = query.ilike('descricao', `%${filtrosAtivos.descricao}%`);
+      }
+    }
+
+    let allData: any[] = [];
+    let from = 0;
+    const pageSize = 1000;
+    let hasMore = true;
+
+    while (hasMore) {
+      const { data, error } = await query.range(from, from + pageSize - 1);
+      if (error) throw error;
+      if (data && data.length > 0) {
+        allData = allData.concat(data);
+        from += pageSize;
+        if (data.length < pageSize) hasMore = false;
+      } else {
+        hasMore = false;
+      }
+    }
+
+    const categorias = [...new Set(allData.map(item => item.categoria).filter(Boolean))].sort();
+    const credores = [...new Set(allData.map(item => item.credor).filter(Boolean))].sort();
 
     return { categorias, credores };
   } catch (erro) {

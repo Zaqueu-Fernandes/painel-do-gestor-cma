@@ -43,7 +43,7 @@ const Login = ({ setUsuario }: LoginProps) => {
         return;
       }
 
-      if (data.status === 'PENDENTE') {
+      if (data.status === false) {
         mostrarModal(
           'pendente',
           'Cadastro pendente de aprovação',
@@ -69,10 +69,6 @@ const Login = ({ setUsuario }: LoginProps) => {
 
   const fecharModal = () => {
     setModal(null);
-  };
-
-  const abrirWhatsApp = () => {
-    window.open('https://wa.me/5588994014262', '_blank');
   };
 
   return (
@@ -144,15 +140,15 @@ const Login = ({ setUsuario }: LoginProps) => {
             </div>
             <h3 className="text-2xl font-bold mb-3 text-gray-700">{modal.titulo}</h3>
             <p className="text-base text-gray-700 mb-6 leading-relaxed">{modal.mensagem}</p>
-            <div className="flex gap-2.5 justify-center">
+            <div className="flex gap-2.5 justify-center items-center">
               {(modal.tipo === 'erro' || modal.tipo === 'pendente') && (
-                <button onClick={abrirWhatsApp} className="px-5 py-2.5 bg-green-500 text-white rounded-full font-bold cursor-pointer transition-transform hover:scale-105 inline-flex items-center gap-2">
+                <a href="https://wa.me/5588994014262" target="_blank" rel="noopener noreferrer" className="px-5 py-2.5 bg-green-500 text-white rounded-full font-bold transition-transform hover:scale-105 inline-flex items-center gap-2 no-underline">
                   <i className="fab fa-whatsapp"></i> WhatsApp
-                </button>
+                </a>
               )}
-              <button onClick={fecharModal} className="px-5 py-3.5 bg-green-800 text-white rounded-lg font-bold cursor-pointer transition-all hover:bg-green-700">
+              <a onClick={fecharModal} className="text-green-800 font-bold cursor-pointer hover:underline">
                 {modal.tipo === 'info' ? 'OK' : 'Voltar ao login'}
-              </button>
+              </a>
             </div>
           </div>
         </div>

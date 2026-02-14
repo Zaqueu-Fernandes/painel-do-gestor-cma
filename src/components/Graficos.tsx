@@ -53,10 +53,10 @@ const Graficos = ({ dadosGraficos }: GraficosProps) => {
       {/* Pizza - Despesas por Categoria */}
       <div className="bg-white p-6 rounded-xl shadow">
         <h4 className="text-gray-700 mb-4 font-semibold">Despesas por Categoria</h4>
-        <div className="h-64">
+        <div className="h-96">
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
-              <Pie data={dataPie} innerRadius={50} outerRadius={80} paddingAngle={3} dataKey="value">
+              <Pie data={dataPie} innerRadius={70} outerRadius={120} paddingAngle={3} dataKey="value">
                 {dataPie.map((_, index) => (
                   <Cell key={index} fill={COLORS[index % COLORS.length]} />
                 ))}

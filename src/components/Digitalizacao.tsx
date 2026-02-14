@@ -52,6 +52,31 @@ const Digitalizacao = ({ fazerLogout, filtros, setFiltros }: DigitalizacaoProps)
     }
   };
 
+  const nomeMes = (mes: string) => {
+    const meses: Record<string, string> = {
+      '1': 'Janeiro', '2': 'Fevereiro', '3': 'Março', '4': 'Abril',
+      '5': 'Maio', '6': 'Junho', '7': 'Julho', '8': 'Agosto',
+      '9': 'Setembro', '10': 'Outubro', '11': 'Novembro', '12': 'Dezembro'
+    };
+    return meses[mes] || mes;
+  };
+
+  const gerarTextoFiltros = () => {
+    const partes: string[] = [];
+    if (filtros.dataInicial && filtros.dataFinal) {
+      partes.push(`Período: ${new Date(filtros.dataInicial).toLocaleDateString('pt-BR')} a ${new Date(filtros.dataFinal).toLocaleDateString('pt-BR')}`);
+    } else {
+      if (filtros.ano) partes.push(`Ano: ${filtros.ano}`);
+      if (filtros.mes) partes.push(`Mês: ${nomeMes(filtros.mes)}`);
+    }
+    if (filtros.natureza && filtros.natureza !== 'TODOS') partes.push(`Natureza: ${filtros.natureza}`);
+    if (filtros.categoria) partes.push(`Categoria: ${filtros.categoria}`);
+    if (filtros.credor) partes.push(`Credor: ${filtros.credor}`);
+    if (filtros.docCaixa) partes.push(`Doc. Caixa: ${filtros.docCaixa}`);
+    if (filtros.descricao) partes.push(`Descrição: ${filtros.descricao}`);
+    return partes;
+  };
+
   const exportarPDF = () => {
     const doc = new jsPDF('landscape');
 
@@ -65,6 +90,27 @@ const Digitalizacao = ({ fazerLogout, filtros, setFiltros }: DigitalizacaoProps)
 
     doc.setLineWidth(0.5);
     doc.line(14, 28, 283, 28);
+
+    // Filtros aplicados
+    let y = 34;
+    const filtrosTexto = gerarTextoFiltros();
+    if (filtrosTexto.length > 0) {
+      doc.setFontSize(10);
+      doc.setFont('helvetica', 'bold');
+      doc.text('Filtros aplicados:', 14, y);
+      y += 6;
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(9);
+      // Exibir filtros em linha, separados por " | "
+      const linhaFiltros = filtrosTexto.join('  |  ');
+      doc.text(linhaFiltros, 14, y);
+      y += 8;
+      doc.setLineWidth(0.2);
+      doc.line(14, y, 283, y);
+      y += 4;
+    } else {
+      y = 34;
+    }
 
     const dadosTabela = dados.map((item) => [
       new Date(item.data).toLocaleDateString('pt-BR'),
@@ -81,7 +127,7 @@ const Digitalizacao = ({ fazerLogout, filtros, setFiltros }: DigitalizacaoProps)
     autoTable(doc, {
       head: [['Data', 'Doc', 'Natureza', 'Categoria', 'Credor', 'Receitas', 'Desp. Bruta', 'Deduções', 'Desp. Líquida']],
       body: dadosTabela,
-      startY: 32,
+      startY: y,
       theme: 'grid',
       headStyles: { fillColor: [45, 80, 22] },
       styles: { fontSize: 8 }

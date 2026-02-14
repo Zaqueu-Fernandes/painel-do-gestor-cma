@@ -46,6 +46,31 @@ const AnaliseFinanceira = ({ fazerLogout, filtros, setFiltros }: AnaliseFinancei
     }
   };
 
+  const nomeMes = (mes: string) => {
+    const meses: Record<string, string> = {
+      '1': 'Janeiro', '2': 'Fevereiro', '3': 'Março', '4': 'Abril',
+      '5': 'Maio', '6': 'Junho', '7': 'Julho', '8': 'Agosto',
+      '9': 'Setembro', '10': 'Outubro', '11': 'Novembro', '12': 'Dezembro'
+    };
+    return meses[mes] || mes;
+  };
+
+  const gerarTextoFiltros = () => {
+    const partes: string[] = [];
+    if (filtros.dataInicial && filtros.dataFinal) {
+      partes.push(`Período: ${new Date(filtros.dataInicial).toLocaleDateString('pt-BR')} a ${new Date(filtros.dataFinal).toLocaleDateString('pt-BR')}`);
+    } else {
+      if (filtros.ano) partes.push(`Ano: ${filtros.ano}`);
+      if (filtros.mes) partes.push(`Mês: ${nomeMes(filtros.mes)}`);
+    }
+    if (filtros.natureza && filtros.natureza !== 'TODOS') partes.push(`Natureza: ${filtros.natureza}`);
+    if (filtros.categoria) partes.push(`Categoria: ${filtros.categoria}`);
+    if (filtros.credor) partes.push(`Credor: ${filtros.credor}`);
+    if (filtros.docCaixa) partes.push(`Doc. Caixa: ${filtros.docCaixa}`);
+    if (filtros.descricao) partes.push(`Descrição: ${filtros.descricao}`);
+    return partes;
+  };
+
   const exportarPDF = () => {
     if (!dadosGraficos) return;
     
@@ -62,7 +87,26 @@ const AnaliseFinanceira = ({ fazerLogout, filtros, setFiltros }: AnaliseFinancei
     doc.setLineWidth(0.5);
     doc.line(14, 28, 283, 28);
 
-    let y = 40;
+    // Filtros aplicados
+    let y = 34;
+    const filtrosTexto = gerarTextoFiltros();
+    if (filtrosTexto.length > 0) {
+      doc.setFontSize(10);
+      doc.setFont('helvetica', 'bold');
+      doc.text('Filtros aplicados:', 14, y);
+      y += 6;
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(9);
+      const linhaFiltros = filtrosTexto.join('  |  ');
+      doc.text(linhaFiltros, 14, y);
+      y += 8;
+      doc.setLineWidth(0.2);
+      doc.line(14, y, 283, y);
+      y += 6;
+    } else {
+      y = 40;
+    }
+
     doc.setFontSize(12);
     doc.setFont('helvetica', 'bold');
     doc.text('Resumo Financeiro:', 14, y);

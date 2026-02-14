@@ -121,7 +121,8 @@ const Digitalizacao = ({ fazerLogout, filtros, setFiltros }: DigitalizacaoProps)
       formatarMoeda(item.receitas),
       formatarMoeda(item.despesa_bruta),
       formatarMoeda(item.deducoes),
-      formatarMoeda(item.despesa_liquida)
+      formatarMoeda(item.despesa_liquida),
+      item.processo ? 'Ver' : '-'
     ]);
 
     // Subtotais
@@ -139,12 +140,22 @@ const Digitalizacao = ({ fazerLogout, filtros, setFiltros }: DigitalizacaoProps)
     y += 4;
 
     autoTable(doc, {
-      head: [['Data', 'Doc', 'Natureza', 'Categoria', 'Credor', 'Receitas', 'Desp. Bruta', 'Deduções', 'Desp. Líquida']],
+      head: [['Data', 'Doc', 'Natureza', 'Categoria', 'Credor', 'Receitas', 'Desp. Bruta', 'Deduções', 'Desp. Líquida', 'Processo']],
       body: dadosTabela,
       startY: y,
       theme: 'grid',
       headStyles: { fillColor: [45, 80, 22] },
-      styles: { fontSize: 8 }
+      styles: { fontSize: 8 },
+      didDrawCell: (data: any) => {
+        if (data.section === 'body' && data.column.index === 9 && data.cell.raw === 'Ver') {
+          const processo = dados[data.row.index]?.processo;
+          if (processo) {
+            doc.setTextColor(0, 0, 255);
+            doc.textWithLink('Ver', data.cell.x + 2, data.cell.y + data.cell.height / 2 + 1, { url: processo });
+            doc.setTextColor(0, 0, 0);
+          }
+        }
+      }
     });
 
     const pageCount = (doc as any).internal.getNumberOfPages();

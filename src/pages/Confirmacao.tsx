@@ -13,14 +13,12 @@ const Confirmacao = () => {
       <p className="text-sm opacity-90 mb-8">
         (entre em contato com o suporte para agilizar a liberação)
       </p>
-      <a
-        href="https://wa.me/5588994014262"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="bg-green-500 text-white rounded-full font-bold text-lg transition-transform hover:scale-105 inline-flex items-center gap-2 px-8 py-3.5 no-underline"
+      <button
+        onClick={() => window.open('https://wa.me/5588994014262', '_blank')}
+        className="bg-green-500 text-white rounded-full font-bold text-lg transition-transform hover:scale-105 inline-flex items-center gap-2 px-8 py-3.5 border-none cursor-pointer"
       >
         <i className="fab fa-whatsapp"></i> Chamar no WhatsApp
-      </a>
+      </button>
       <p className="mt-5">
         <a onClick={() => navigate('/login')} className="text-blue-400 cursor-pointer hover:underline">
           Voltar ao login

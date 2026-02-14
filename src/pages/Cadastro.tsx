@@ -166,9 +166,9 @@ const Cadastro = () => {
             <p className="text-base text-gray-700 mb-6 leading-relaxed">{modal.mensagem}</p>
             <div className="flex gap-2.5 justify-center items-center">
               {modal.tipo === 'erro' && (
-                <a href="https://wa.me/5588994014262" target="_blank" rel="noopener noreferrer" className="px-5 py-2.5 bg-green-500 text-white rounded-full font-bold transition-transform hover:scale-105 inline-flex items-center gap-2 no-underline">
+                <button onClick={() => window.open('https://wa.me/5588994014262', '_blank')} className="px-5 py-2.5 bg-green-500 text-white rounded-full font-bold transition-transform hover:scale-105 inline-flex items-center gap-2 border-none cursor-pointer">
                   <i className="fab fa-whatsapp"></i> WhatsApp
-                </a>
+                </button>
               )}
               <a onClick={fecharModal} className="text-green-800 font-bold cursor-pointer hover:underline">
                 Voltar ao {modal.tipo === 'erro' ? 'login' : 'cadastro'}

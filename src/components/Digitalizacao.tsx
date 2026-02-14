@@ -124,6 +124,20 @@ const Digitalizacao = ({ fazerLogout, filtros, setFiltros }: DigitalizacaoProps)
       formatarMoeda(item.despesa_liquida)
     ]);
 
+    // Subtotais
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Subtotais:', 14, y);
+    y += 6;
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9);
+    const subtotaisTexto = `Receitas: ${formatarMoeda(totais.receitas)}  |  Desp. Bruta: ${formatarMoeda(totais.despesaBruta)}  |  Deduções: ${formatarMoeda(totais.deducoes)}  |  Desp. Líquida: ${formatarMoeda(totais.despesaLiquida)}`;
+    doc.text(subtotaisTexto, 14, y);
+    y += 8;
+    doc.setLineWidth(0.2);
+    doc.line(14, y, 283, y);
+    y += 4;
+
     autoTable(doc, {
       head: [['Data', 'Doc', 'Natureza', 'Categoria', 'Credor', 'Receitas', 'Desp. Bruta', 'Deduções', 'Desp. Líquida']],
       body: dadosTabela,

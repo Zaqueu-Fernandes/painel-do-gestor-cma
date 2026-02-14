@@ -2,32 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Ajustes Globais para o Painel CMA */
 @layer base {
   html {
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
   }
 
   body {
-    @apply bg-gray-50 text-gray-900;
-    overflow-x: hidden;
+    margin: 0;
+    min-height: 100vh;
+    color: #333;
+  }
+
+  #root {
+    width: 100%;
+    min-height: 100vh;
   }
 }
 
-/* Animação suave para as tabelas e cards ao carregar */
-@layer components {
-  .animate-fadeIn {
-    animation: fadeIn 0.5s ease-in-out;
-  }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Estilização da barra de rolagem (scrollbar) para ficar discreta */
+/* Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -37,10 +30,10 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #15803d;
+  background: #2d5016;
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #166534;
+  background: #1a472a;
 }

@@ -122,7 +122,7 @@ const Digitalizacao = ({ fazerLogout, filtros, setFiltros }: DigitalizacaoProps)
       formatarMoeda(item.despesa_bruta),
       formatarMoeda(item.deducoes),
       formatarMoeda(item.despesa_liquida),
-      item.processo ? 'Ver' : '-'
+      item.processo ? '👁' : '-'
     ]);
 
     // Subtotais
@@ -147,11 +147,11 @@ const Digitalizacao = ({ fazerLogout, filtros, setFiltros }: DigitalizacaoProps)
       headStyles: { fillColor: [45, 80, 22] },
       styles: { fontSize: 8 },
       didDrawCell: (data: any) => {
-        if (data.section === 'body' && data.column.index === 9 && data.cell.raw === 'Ver') {
+        if (data.section === 'body' && data.column.index === 9 && data.cell.raw === '👁') {
           const processo = dados[data.row.index]?.processo;
           if (processo) {
-            doc.setTextColor(0, 0, 255);
-            doc.textWithLink('Ver', data.cell.x + 2, data.cell.y + data.cell.height / 2 + 1, { url: processo });
+            doc.setTextColor(0, 102, 204);
+            doc.textWithLink('👁', data.cell.x + 4, data.cell.y + data.cell.height / 2 + 1, { url: processo });
             doc.setTextColor(0, 0, 0);
           }
         }

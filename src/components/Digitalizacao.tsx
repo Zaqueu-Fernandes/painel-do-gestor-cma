@@ -4,7 +4,7 @@ import Filtros from './Filtros';
 import Cards from './Cards';
 import Tabela from './Tabela';
 import jsPDF from 'jspdf';
-import 'jspdf-autotable';
+import autoTable from 'jspdf-autotable';
 
 interface DigitalizacaoProps {
   fazerLogout: () => void;
@@ -78,7 +78,7 @@ const Digitalizacao = ({ fazerLogout, filtros, setFiltros }: DigitalizacaoProps)
       formatarMoeda(item.despesa_liquida)
     ]);
 
-    (doc as any).autoTable({
+    autoTable(doc, {
       head: [['Data', 'Doc', 'Natureza', 'Categoria', 'Credor', 'Receitas', 'Desp. Bruta', 'Deduções', 'Desp. Líquida']],
       body: dadosTabela,
       startY: 32,

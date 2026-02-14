@@ -19,20 +19,30 @@ const Filtros = ({ filtros, setFiltros, onLimparFiltros, fazerLogout }: FiltrosP
     anos: []
   });
 
+  // Carregar anos uma vez
   useEffect(() => {
-    carregarOpcoesFiltros();
+    const carregarAnos = async () => {
+      const anos = await buscarAnosDisponiveis();
+      setOpcoes(prev => ({
+        ...prev,
+        anos: anos.length > 0 ? anos : [2025, 2024, 2023, 2022, 2021, 2020]
+      }));
+    };
+    carregarAnos();
   }, []);
 
-  const carregarOpcoesFiltros = async () => {
-    const resultado = await buscarFiltrosDisponiveis();
-    const anos = await buscarAnosDisponiveis();
-
-    setOpcoes({
-      categorias: resultado.categorias,
-      credores: resultado.credores,
-      anos: anos.length > 0 ? anos : [2025, 2024, 2023, 2022, 2021, 2020]
-    });
-  };
+  // Carregar opções de filtros dinamicamente quando filtros mudam
+  useEffect(() => {
+    const carregarOpcoesFiltros = async () => {
+      const resultado = await buscarFiltrosDisponiveis(filtros);
+      setOpcoes(prev => ({
+        ...prev,
+        categorias: resultado.categorias,
+        credores: resultado.credores,
+      }));
+    };
+    carregarOpcoesFiltros();
+  }, [filtros.dataInicial, filtros.dataFinal, filtros.mes, filtros.ano, filtros.natureza, filtros.categoria, filtros.credor, filtros.docCaixa, filtros.descricao]);
 
   const handleChange = (campo: string, valor: string) => {
     setFiltros(prev => ({
@@ -86,47 +96,27 @@ const Filtros = ({ filtros, setFiltros, onLimparFiltros, fazerLogout }: FiltrosP
         </div>
       </div>
 
-      {/* Primeira linha: Período, Ano/Mês, Natureza, Categoria */}
+      {/* Primeira linha */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mb-4" style={{ gridTemplateColumns: '2.5fr 2fr 2fr 1.5fr' }}>
-        {/* Período */}
         <div>
           <label className={labelClass}>Período</label>
           <div className="flex gap-1.5 items-center">
-            <input
-              type="date"
-              value={filtros.dataInicial}
-              onChange={(e) => handleChange('dataInicial', e.target.value)}
-              className={inputClass}
-            />
+            <input type="date" value={filtros.dataInicial} onChange={(e) => handleChange('dataInicial', e.target.value)} className={inputClass} />
             <span className="text-gray-700 font-medium text-sm px-0.5">até</span>
-            <input
-              type="date"
-              value={filtros.dataFinal}
-              onChange={(e) => handleChange('dataFinal', e.target.value)}
-              className={inputClass}
-            />
+            <input type="date" value={filtros.dataFinal} onChange={(e) => handleChange('dataFinal', e.target.value)} className={inputClass} />
           </div>
         </div>
 
-        {/* Ano/Mês */}
         <div>
           <label className={labelClass}>Ano/Mês</label>
           <div className="flex gap-1.5">
-            <select
-              value={filtros.ano}
-              onChange={(e) => handleChange('ano', e.target.value)}
-              className={inputClass}
-            >
+            <select value={filtros.ano} onChange={(e) => handleChange('ano', e.target.value)} className={inputClass}>
               <option value="">Ano</option>
               {opcoes.anos.map(ano => (
                 <option key={ano} value={ano}>{ano}</option>
               ))}
             </select>
-            <select
-              value={filtros.mes}
-              onChange={(e) => handleChange('mes', e.target.value)}
-              className={inputClass}
-            >
+            <select value={filtros.mes} onChange={(e) => handleChange('mes', e.target.value)} className={inputClass}>
               <option value="">Mês</option>
               <option value="1">Janeiro</option>
               <option value="2">Fevereiro</option>
@@ -144,7 +134,6 @@ const Filtros = ({ filtros, setFiltros, onLimparFiltros, fazerLogout }: FiltrosP
           </div>
         </div>
 
-        {/* Natureza */}
         <div>
           <label className={labelClass}>Natureza</label>
           <div className="flex gap-1.5">
@@ -165,14 +154,9 @@ const Filtros = ({ filtros, setFiltros, onLimparFiltros, fazerLogout }: FiltrosP
           </div>
         </div>
 
-        {/* Categoria */}
         <div>
           <label className={labelClass}>Categoria</label>
-          <select
-            value={filtros.categoria}
-            onChange={(e) => handleChange('categoria', e.target.value)}
-            className={inputClass}
-          >
+          <select value={filtros.categoria} onChange={(e) => handleChange('categoria', e.target.value)} className={inputClass}>
             <option value="">Todas</option>
             {opcoes.categorias.map((cat, index) => (
               <option key={index} value={cat}>{cat}</option>
@@ -181,15 +165,11 @@ const Filtros = ({ filtros, setFiltros, onLimparFiltros, fazerLogout }: FiltrosP
         </div>
       </div>
 
-      {/* Segunda linha: Credor, Doc. Caixa, Descrição */}
+      {/* Segunda linha */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-[900px] mx-auto">
         <div>
           <label className={labelClass}>Credor</label>
-          <select
-            value={filtros.credor}
-            onChange={(e) => handleChange('credor', e.target.value)}
-            className={inputClass}
-          >
+          <select value={filtros.credor} onChange={(e) => handleChange('credor', e.target.value)} className={inputClass}>
             <option value="">Todos</option>
             {opcoes.credores.map((cred, index) => (
               <option key={index} value={cred}>{cred}</option>
@@ -199,24 +179,12 @@ const Filtros = ({ filtros, setFiltros, onLimparFiltros, fazerLogout }: FiltrosP
 
         <div>
           <label className={labelClass}>Doc. Caixa</label>
-          <input
-            type="text"
-            placeholder="Buscar..."
-            value={filtros.docCaixa}
-            onChange={(e) => handleChange('docCaixa', e.target.value)}
-            className={inputClass}
-          />
+          <input type="text" placeholder="Buscar..." value={filtros.docCaixa} onChange={(e) => handleChange('docCaixa', e.target.value)} className={inputClass} />
         </div>
 
         <div>
           <label className={labelClass}>Descrição</label>
-          <input
-            type="text"
-            placeholder="Buscar..."
-            value={filtros.descricao}
-            onChange={(e) => handleChange('descricao', e.target.value)}
-            className={inputClass}
-          />
+          <input type="text" placeholder="Buscar..." value={filtros.descricao} onChange={(e) => handleChange('descricao', e.target.value)} className={inputClass} />
         </div>
       </div>
     </div>

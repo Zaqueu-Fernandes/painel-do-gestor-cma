@@ -53,8 +53,8 @@ function App() {
         {/* Footer */}
         <footer className="bg-white border-t border-gray-200 py-5 text-center text-gray-700 mt-10">
           <p className="my-1">Copyright © 2026 | <strong>Zaqueu Fernandes</strong> | Suporte Técnico</p>
-          <p className="my-1">
-            WhatsApp:{' '}
+          <p className="my-1 flex items-center justify-center gap-1">
+            <i className="fab fa-whatsapp text-green-500"></i> WhatsApp:{' '}
             <a href="https://wa.me/5588994014262" target="_blank" rel="noopener noreferrer" className="text-green-800 font-bold hover:underline">
               88 9 9401-4262
             </a>

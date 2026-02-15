@@ -17,7 +17,7 @@ export async function cadastrarUsuario(dados: {
 }) {
   try {
     const { data: existente } = await supabase
-      .from('usuarios')
+      .from('cma_usuarios')
       .select('email')
       .eq('email', dados.email.trim().toLowerCase())
       .single();
@@ -27,7 +27,7 @@ export async function cadastrarUsuario(dados: {
     }
 
     const { error } = await supabase
-      .from('usuarios')
+      .from('cma_usuarios')
       .insert([{
         nome: dados.nome,
         email: dados.email.trim().toLowerCase(),
@@ -96,7 +96,7 @@ export interface Totais {
 export async function buscarDadosBase(filtros: Filtros = {} as Filtros) {
   try {
     let query = supabase
-      .from('base')
+      .from('cma_base')
       .select('data, doc_caixa, natureza, categoria, credor, descricao, receitas, despesa_bruta, deducoes, despesa_liquida, processo')
       .order('data', { ascending: true });
 
@@ -196,7 +196,7 @@ export async function buscarAnosDisponiveis() {
 
     while (hasMore) {
       const { data, error } = await supabase
-        .from('base')
+        .from('cma_base')
         .select('data')
         .range(from, from + pageSize - 1);
 
@@ -228,7 +228,7 @@ export async function buscarAnosDisponiveis() {
 export async function buscarFiltrosDisponiveis(filtrosAtivos?: Partial<Filtros>) {
   try {
     let query = supabase
-      .from('base')
+      .from('cma_base')
       .select('categoria, credor');
 
     // Aplicar filtros ativos para tornar os filtros dinâmicos

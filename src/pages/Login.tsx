@@ -27,7 +27,7 @@ const Login = ({ setUsuario }: LoginProps) => {
 
     try {
       const { data, error } = await supabase
-        .from('usuarios')
+        .from('cma_usuarios')
         .select('*')
         .eq('email', email)
         .eq('senha', senha)

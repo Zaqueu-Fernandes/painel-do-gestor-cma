@@ -1,0 +1,178 @@
+[33mcommit 86b4c773a9facaff8d63875a289d47949b96121c[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Zaqueu-Fernandes <zaqueufernandes@gmail.com>
+Date:   Sun Feb 15 13:01:33 2026 -0300
+
+    meu primeiro commit pelo repositorio local
+
+[33mcommit 7f73f8a616eadd9b43439bbcfd44c09e1bbcd5aa[m
+Merge: 98c143c 851a076
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Feb 15 15:47:13 2026 +0000
+
+    Atualizou nomes de tabelas
+    
+    Atualizou as referências de tabela no código para refletir as renomeações: base → CMA_BASE e usuarios → CMA_USUARIOS. Alterações incluem login, cadastro, validação de email, busca de dados base, paginação de base e filtros disponíveis, substituindo todas as chamadas .from('usuarios') por .from('cma_usuarios') e .from('base') por .from('cma_base').
+    
+    X-Lovable-Edit-ID: edt-296e889b-04cd-4997-b71b-49f5b7c60aa9
+
+[33mcommit 851a076f331d493a39e7d17fbccbbba2f736d530[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Feb 15 15:47:13 2026 +0000
+
+    Changes
+
+[33mcommit 98c143c5d387858270d9ad8ee844c1ae5f22418b[m
+Merge: ecccdca 04b5507
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Feb 15 00:00:51 2026 +0000
+
+    Atualizou link no PDF
+    
+    Ajustei a coluna de processo no relatório PDF para usar texto "Link" equivalente ao ícone anterior, mantendo clique ativo e estilo igual à tabela. Modificações em Digitalizacao.tsx substituindo 👁 por Link na exibição e no link clicável.
+    
+    X-Lovable-Edit-ID: edt-d32e706f-58f3-4b65-ac73-e3c6e482531b
+
+[33mcommit 04b5507b03dc09c41fd022588991ededfdeadb9a[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Feb 15 00:00:51 2026 +0000
+
+    Changes
+
+[33mcommit ecccdca89bcc6f72ceb713cbe31edd1e467e6a94[m
+Merge: a40423c 55a9bf7
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Feb 14 23:59:03 2026 +0000
+
+    Atualizou PDF com ícone de olho
+    
+    Troca o texto do link de processo no PDF de "Ver" para o ícone 👁 e ajusta a renderização do link para usar a cor e posição corretas, incluindo lógica de klikabilidade via URL do processo.
+    
+    X-Lovable-Edit-ID: edt-2a07db29-9b4f-4919-9d93-0deaf58922c1
+
+[33mcommit 55a9bf72a2e2f815094d92677f814007d4094603[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Feb 14 23:59:02 2026 +0000
+
+    Changes
+
+[33mcommit a40423cee60c0f4be6231b3aca871ccc34b3bc64[m
+Merge: 5029f01 cedd301
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Feb 14 23:56:08 2026 +0000
+
+    Add clickable Processo column
+    
+    Introduced a new Processo column in the PDF export of Digitalizacao.tsx, including:
+    - Data display now includes a new Processo field
+    - Header updated to include Processos
+    - Each Processo value renders as a clickable link labeled "Ver" when available
+    - Link uses doc.textWithLink to open the URL stored in item.processo
+    - Maintains existing subtotals and layout adjustments for the report header
+    
+    X-Lovable-Edit-ID: edt-1c6c50db-a0a8-4096-8fdd-69ecd2f03423
+
+[33mcommit cedd301157bf6a090637252613a9652a1e31cc6d[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Feb 14 23:56:07 2026 +0000
+
+    Changes
+
+[33mcommit 5029f01a604d9deb946c63e7db67ce9fda1e2b3c[m
+Merge: 70a2195 45478bd
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Feb 14 23:49:59 2026 +0000
+
+    Ajustou WhatsApp e PDFs
+    
+    - Corrigiu links do WhatsApp para abrir via window.open em Login, Confirmacao, Cadastro, e mensagens de erro, evitando bloqueio em previews.
+    - Adicionou subtotais e seção de filtros no PDF gerado pelos módulos de Analise Financeira e Digitalizacao.
+    
+    X-Lovable-Edit-ID: edt-5218c3ad-d232-4101-b947-4e8edf744201
+
+[33mcommit 45478bd6f8cac8b3ef4411e7c53a162e3ac803db[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Feb 14 23:49:58 2026 +0000
+
+    Changes
+
+[33mcommit 70a2195606ed606065669386f34c1c3409b828ce[m
+Merge: 0f16489 3909092
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Feb 14 23:41:41 2026 +0000
+
+    Aprimorar PDFs com filtros
+    
+    Incorporate filtros ativos nos PDFs de Digitalização e AnaliseFinanceira, expandiu gráfico de Despesas por Categoria, e adicionou utilitários de mês para legendas. Also enlarged chart and dynamic filters already present.
+    
+    X-Lovable-Edit-ID: edt-230787ec-7b9f-4235-a3da-8c0a965612d9
+
+[33mcommit 3909092bca59ccf9e9c02d0df8d086987d68d3a5[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Feb 14 23:41:41 2026 +0000
+
+    Changes
+
+[33mcommit 0f16489a172f53a85f9833c85ca487ec5485c64d[m
+Merge: c876c5d 483eebe
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Feb 14 20:20:47 2026 +0000
+
+    Refactor: fix multiple issues
+    
+    Implemented dynamic filters, improved PDF export flow, year pagination, WhatsApp UI enhancements, boolean status handling, and UI tweaks across components to resolve reported problems.
+    
+    X-Lovable-Edit-ID: edt-46700ebf-708c-47e2-bb7e-2da2adf84488
+
+[33mcommit 483eebeb79da1096903f34c111530274b7974f05[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Feb 14 20:20:46 2026 +0000
+
+    Changes
+
+[33mcommit c876c5d4ebff63d00686fc41eff156dca7aef93a[m
+Merge: 52bbd89 4523fe9
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Feb 14 19:38:27 2026 +0000
+
+    Removed old legacy files
+    
+    Deleted outdated modules and cleanups to prevent conflicts with new Tailwind + Recharts implementation (removed old Supabase API, NavLink, PainelGestor, export utilities, and index page). Ensures a clean workspace for updated code.
+    
+    X-Lovable-Edit-ID: edt-37eeb3f2-486e-4634-8319-901a3abc71cc
+
+[33mcommit 4523fe902b311122d8ec74b4fa083a8e14df6d98[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Feb 14 19:38:26 2026 +0000
+
+    Changes
+
+[33mcommit 52bbd892ae55fb165c67e3e09292c83d8fe3cc4c[m
+Merge: ef09474 cbd0091
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Feb 14 19:25:45 2026 +0000
+
+    Migrated to Tailwind + Recharts
+    
+    Converted UI from CSS to Tailwind, updated components (Cards, Dashboard, Digitalizacao, Graficos, Tabela, Filtros), and replaced Chart.js with Recharts; added new services and updated routing with HashRouter. Also adjusted app structure to support Tailwind styling and PDF export workflow.
+    
+    X-Lovable-Edit-ID: edt-3bbde348-29fa-4267-933c-afe0660e6175
+
+[33mcommit cbd009196bd78c1c139bdb67310a11d0ad3b787b[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sat Feb 14 19:25:44 2026 +0000
+
+    Changes
+
+[33mcommit ef0947423814f6f22a34184719d116f5bb0a08d9[m
+Merge: fd8f8e8 f0b5c40
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Fri Feb 13 16:13:19 2026 +0000
+
+    Corrigiu estilização CMA
+    
+    Implementa styling completo: integra Tailwind com cores CMA, adiciona Font Awesome e Inter, cria componentes de autenticação e dashboard (Login, Cadastro, Confirmacao, PainelGestor, AnaliseFinanceira), configura Supabase, exportação PDF, e loader inicial; atualiza index.html, index.css, tailwind.config, e utilitários exportPDF e supabase client.
+    
+    X-Lovable-Edit-ID: edt-ffbea46b-fffa-43b4-8ea8-7c7a67fde321
+
+[33mcommit f0b5c4033b2d7f9031d351304389de7b78389bf0[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.githu

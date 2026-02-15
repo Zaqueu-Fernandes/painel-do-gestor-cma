@@ -1,4 +1,4 @@
-# Welcome to your Lovable Project + supabase
+# Welcome to your Lovable Project + supabase.
 
 ## Project info
 

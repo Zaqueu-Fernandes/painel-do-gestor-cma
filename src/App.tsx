@@ -1,5 +1,5 @@
 import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Login from './pages/Login';
 import Cadastro from './pages/Cadastro';
 import Confirmacao from './pages/Confirmacao';
@@ -8,6 +8,16 @@ import './index.css';
 
 function App() {
   const [usuario, setUsuario] = useState<any>(null);
+
+  useEffect(() => {
+    const loader = document.getElementById('initial-loader');
+    if (loader) {
+      loader.style.opacity = '0';
+      setTimeout(() => {
+        loader.style.display = 'none';
+      }, 500);
+    }
+  }, []);
 
   const RotaProtegida = ({ children }: { children: React.ReactNode }) => {
     return usuario ? <>{children}</> : <Navigate to="/login" />;

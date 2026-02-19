@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import Cadastro from './pages/Cadastro';
 import Confirmacao from './pages/Confirmacao';
 import Dashboard from './components/Dashboard';
+import PWAInstallPrompt from './components/PWAInstallPrompt';
 import './index.css';
 
 function App() {
@@ -70,6 +71,7 @@ function App() {
             </a>
           </p>
         </footer>
+        <PWAInstallPrompt />
       </div>
     </HashRouter>
   );

@@ -29,16 +29,16 @@ function App() {
       <div className="w-full min-h-screen" style={{ background: 'linear-gradient(135deg, #1a472a 0%, #2d5016 100%)' }}>
         {/* Header */}
         <header className="bg-white shadow">
-          <div className="flex items-center justify-center py-5 px-10 gap-5 max-w-[1400px] mx-auto">
+          <div className="flex items-center justify-center py-3 px-4 md:py-5 md:px-10 gap-3 md:gap-5 max-w-[1400px] mx-auto">
             <img
               src="https://i.ibb.co/yFHW1DxL/Gemini-CMA-logo-Photoroom.png"
               alt="Logo CMA"
-              className="w-[60px] h-[60px] object-contain"
+              className="w-10 h-10 md:w-[60px] md:h-[60px] object-contain"
               onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
             />
             <div className="text-center">
-              <h1 className="text-2xl font-bold text-green-800 mb-1">Painel do Gestor - Câmara Municipal de Araripe</h1>
-              <h2 className="text-base text-gray-700 font-normal">Gestão de documentos digitalizados</h2>
+              <h1 className="text-sm md:text-2xl font-bold text-green-800 mb-0.5 md:mb-1">Painel do Gestor - Câmara Municipal de Araripe</h1>
+              <h2 className="text-xs md:text-base text-gray-700 font-normal">Gestão de documentos digitalizados</h2>
             </div>
           </div>
         </header>
@@ -62,7 +62,7 @@ function App() {
         </main>
 
         {/* Footer */}
-        <footer className="bg-white border-t border-gray-200 py-5 text-center text-gray-700 mt-10">
+        <footer className="bg-white border-t border-gray-200 py-4 md:py-5 text-center text-gray-700 mt-6 md:mt-10 text-xs md:text-base px-4">
           <p className="my-1">Copyright © 2026 | <strong>Zaqueu Fernandes</strong> | Suporte Técnico</p>
           <p className="my-1 flex items-center justify-center gap-1">
             <i className="fab fa-whatsapp text-green-500"></i> WhatsApp:{' '}

@@ -80,10 +80,10 @@ const Filtros = ({ filtros, setFiltros, onLimparFiltros, fazerLogout }: FiltrosP
   const labelClass = "block mb-1.5 text-gray-700 font-medium text-sm";
 
   return (
-    <div className="bg-white p-6 rounded-xl shadow mb-6">
+    <div className="bg-white p-4 md:p-6 rounded-xl shadow mb-6">
       {/* Header */}
-      <div className="flex justify-between items-center mb-5 flex-wrap gap-3">
-        <h3 className="text-green-800 text-xl font-bold flex items-center gap-2">
+      <div className="flex justify-between items-center mb-4 md:mb-5 flex-wrap gap-3">
+        <h3 className="text-green-800 text-lg md:text-xl font-bold flex items-center gap-2">
           <i className="fas fa-filter"></i> Filtros
         </h3>
         <div className="flex items-center gap-4">
@@ -97,7 +97,7 @@ const Filtros = ({ filtros, setFiltros, onLimparFiltros, fazerLogout }: FiltrosP
       </div>
 
       {/* Primeira linha */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mb-4" style={{ gridTemplateColumns: '2.5fr 2fr 2fr 1.5fr' }}>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mb-4 lg:[grid-template-columns:2.5fr_2fr_2fr_1.5fr]">
         <div>
           <label className={labelClass}>Período</label>
           <div className="flex gap-1.5 items-center">

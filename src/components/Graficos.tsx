@@ -51,8 +51,8 @@ const Graficos = ({ dadosGraficos }: GraficosProps) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
       {/* Pizza - Despesas por Categoria */}
-      <div className="bg-white p-6 rounded-xl shadow">
-        <h4 className="text-gray-700 mb-4 font-semibold">Despesas por Categoria</h4>
+      <div className="bg-white p-4 md:p-6 rounded-xl shadow">
+        <h4 className="text-gray-700 mb-4 font-semibold text-sm md:text-base">Despesas por Categoria</h4>
         <div className="h-96">
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
@@ -68,8 +68,8 @@ const Graficos = ({ dadosGraficos }: GraficosProps) => {
       </div>
 
       {/* Colunas - Receitas vs Despesas */}
-      <div className="bg-white p-6 rounded-xl shadow">
-        <h4 className="text-gray-700 mb-4 font-semibold">Receitas vs Despesas</h4>
+      <div className="bg-white p-4 md:p-6 rounded-xl shadow">
+        <h4 className="text-gray-700 mb-4 font-semibold text-sm md:text-base">Receitas vs Despesas</h4>
         <div className="h-64">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={dataEvolucao}>
@@ -86,8 +86,8 @@ const Graficos = ({ dadosGraficos }: GraficosProps) => {
       </div>
 
       {/* Linha - Evolução Mensal */}
-      <div className="bg-white p-6 rounded-xl shadow md:col-span-2">
-        <h4 className="text-gray-700 mb-4 font-semibold">Evolução Mensal</h4>
+      <div className="bg-white p-4 md:p-6 rounded-xl shadow md:col-span-2">
+        <h4 className="text-gray-700 mb-4 font-semibold text-sm md:text-base">Evolução Mensal</h4>
         <div className="h-64">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={dataEvolucao}>
@@ -104,8 +104,8 @@ const Graficos = ({ dadosGraficos }: GraficosProps) => {
       </div>
 
       {/* Barras Horizontais - Top 10 Credores */}
-      <div className="bg-white p-6 rounded-xl shadow md:col-span-2">
-        <h4 className="text-gray-700 mb-4 font-semibold">Top 10 Credores</h4>
+      <div className="bg-white p-4 md:p-6 rounded-xl shadow md:col-span-2">
+        <h4 className="text-gray-700 mb-4 font-semibold text-sm md:text-base">Top 10 Credores</h4>
         <div className="h-80">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={dataCredores} layout="vertical">

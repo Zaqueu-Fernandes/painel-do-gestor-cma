@@ -155,7 +155,7 @@ const AnaliseFinanceira = ({ fazerLogout, filtros, setFiltros }: AnaliseFinancei
   };
 
   return (
-    <div className="p-8 max-w-[1400px] mx-auto">
+    <div className="p-4 md:p-8 max-w-[1400px] mx-auto">
       <Filtros
         filtros={filtros}
         setFiltros={setFiltros}
@@ -178,11 +178,11 @@ const AnaliseFinanceira = ({ fazerLogout, filtros, setFiltros }: AnaliseFinancei
 
       {!loading && !semDados && dadosGraficos && (
         <>
-          <div className="flex justify-between items-center mb-4">
-            <h3 className="text-green-800 text-xl font-bold flex items-center gap-2">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-3">
+            <h3 className="text-green-800 text-lg md:text-xl font-bold flex items-center gap-2">
               <i className="fas fa-chart-pie"></i> Análise Gráfica
             </h3>
-            <button onClick={exportarPDF} className="px-5 py-2.5 bg-green-800 text-white rounded-md font-bold transition-colors hover:bg-green-700 flex items-center gap-2">
+            <button onClick={exportarPDF} className="px-4 md:px-5 py-2 md:py-2.5 bg-green-800 text-white rounded-md font-bold transition-colors hover:bg-green-700 flex items-center gap-2 text-sm md:text-base">
               <i className="fas fa-file-pdf"></i> Exportar PDF
             </button>
           </div>

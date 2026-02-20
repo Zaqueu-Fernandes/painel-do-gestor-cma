@@ -34,9 +34,9 @@ const Dashboard = ({ usuario, setUsuario }: DashboardProps) => {
     <div className="bg-gray-50 min-h-[calc(100vh-200px)]">
       {/* Menu Abas */}
       <div className="bg-white border-t border-gray-200">
-        <div className="flex px-10 max-w-[1400px] mx-auto">
+        <div className="flex px-4 md:px-10 max-w-[1400px] mx-auto overflow-x-auto">
           <button
-            className={`py-4 px-8 bg-transparent border-b-[3px] text-base font-medium cursor-pointer transition-all flex items-center gap-2 ${
+            className={`py-3 md:py-4 px-4 md:px-8 bg-transparent border-b-[3px] text-sm md:text-base font-medium cursor-pointer transition-all flex items-center gap-2 whitespace-nowrap ${
               abaAtiva === 'digitalizacao'
                 ? 'border-green-800 text-green-800'
                 : 'border-transparent text-gray-700 hover:bg-gray-50'
@@ -46,7 +46,7 @@ const Dashboard = ({ usuario, setUsuario }: DashboardProps) => {
             <i className="fas fa-file-alt"></i> Digitalização
           </button>
           <button
-            className={`py-4 px-8 bg-transparent border-b-[3px] text-base font-medium cursor-pointer transition-all flex items-center gap-2 ${
+            className={`py-3 md:py-4 px-4 md:px-8 bg-transparent border-b-[3px] text-sm md:text-base font-medium cursor-pointer transition-all flex items-center gap-2 whitespace-nowrap ${
               abaAtiva === 'analise'
                 ? 'border-green-800 text-green-800'
                 : 'border-transparent text-gray-700 hover:bg-gray-50'

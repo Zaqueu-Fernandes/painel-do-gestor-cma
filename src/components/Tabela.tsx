@@ -130,7 +130,7 @@ const Tabela = ({ dados }: TabelaProps) => {
 
   return (
     <div>
-      <div className="bg-white rounded-xl overflow-hidden shadow max-h-[600px] overflow-auto">
+      <div className="bg-white rounded-xl shadow max-h-[600px] overflow-x-auto overflow-y-auto -mx-4 px-4 md:mx-0 md:px-0">
         <table className="w-full border-collapse text-sm min-w-[1200px]">
           <thead className="bg-green-800 text-white sticky top-0 z-10">
             <tr>

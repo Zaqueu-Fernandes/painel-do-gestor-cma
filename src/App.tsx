@@ -26,7 +26,7 @@ function App() {
 
   return (
     <HashRouter>
-      <div className="w-full min-h-screen" style={{ background: 'linear-gradient(135deg, #1a472a 0%, #2d5016 100%)' }}>
+      <div className="w-full min-h-screen flex flex-col" style={{ background: 'linear-gradient(135deg, #1a472a 0%, #2d5016 100%)' }}>
         {/* Header */}
         <header className="bg-white shadow">
           <div className="flex items-center justify-center py-3 px-4 md:py-5 md:px-10 gap-3 md:gap-5 max-w-[1400px] mx-auto">
@@ -44,7 +44,7 @@ function App() {
         </header>
 
         {/* Conteúdo */}
-        <main>
+        <main className="flex-1">
           <Routes>
             <Route path="/login" element={<Login setUsuario={setUsuario} />} />
             <Route path="/cadastro" element={<Cadastro />} />

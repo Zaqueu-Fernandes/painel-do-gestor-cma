@@ -372,3 +372,149 @@ export async function buscarDadosGraficos(filtros: Filtros = {} as Filtros) {
     return { sucesso: false };
   }
 }
+
+// ========================================
+// BUSCAR DADOS DA TABELA RH
+// ========================================
+export async function buscarDadosRH(filtros: FiltrosRH = {} as FiltrosRH) {
+  try {
+    let query = supabase
+      .from('cma_rh')
+      .select('data, doc_caixa, mes_competencia, categoria, vinculo, servidor, descricao, valor_bruto, deducoes, valor_liquido, anexo')
+      .order('data', { ascending: true });
+
+    if (filtros.dataInicial && filtros.dataFinal) {
+      query = query.gte('data', filtros.dataInicial).lte('data', filtros.dataFinal);
+    } else if (filtros.mes && filtros.ano) {
+      const mesNum = String(filtros.mes).padStart(2, '0');
+      const dataInicio = `${filtros.ano}-${mesNum}-01`;
+      let proximoMes = parseInt(filtros.mes) + 1;
+      let proximoAno = parseInt(filtros.ano);
+      if (proximoMes > 12) { proximoMes = 1; proximoAno += 1; }
+      const dataFim = `${proximoAno}-${String(proximoMes).padStart(2, '0')}-01`;
+      query = query.gte('data', dataInicio).lt('data', dataFim);
+    } else if (filtros.ano && !filtros.mes) {
+      query = query.gte('data', `${filtros.ano}-01-01`).lt('data', `${parseInt(filtros.ano) + 1}-01-01`);
+    }
+
+    if (filtros.categoria) query = query.eq('categoria', filtros.categoria);
+    if (filtros.vinculo) query = query.eq('vinculo', filtros.vinculo);
+    if (filtros.servidor) query = query.eq('servidor', filtros.servidor);
+    if (filtros.docCaixa) query = query.ilike('doc_caixa', `%${filtros.docCaixa}%`);
+    if (filtros.descricao) query = query.ilike('descricao', `%${filtros.descricao}%`);
+
+    let allData: any[] = [];
+    let from = 0;
+    const pageSize = 1000;
+    let hasMore = true;
+
+    while (hasMore) {
+      const { data, error } = await query.range(from, from + pageSize - 1);
+      if (error) throw error;
+      if (data && data.length > 0) {
+        allData = allData.concat(data);
+        from += pageSize;
+        if (data.length < pageSize) hasMore = false;
+      } else {
+        hasMore = false;
+      }
+    }
+
+    const totais: TotaisRH = { valorBruto: 0, deducoes: 0, valorLiquido: 0 };
+    allData.forEach(item => {
+      totais.valorBruto += parseFloat(item.valor_bruto || 0);
+      totais.deducoes += parseFloat(item.deducoes || 0);
+      totais.valorLiquido += parseFloat(item.valor_liquido || 0);
+    });
+
+    return { sucesso: true, dados: allData, totais };
+  } catch (erro: any) {
+    console.error('Erro ao buscar dados RH:', erro);
+    return { sucesso: false, mensagem: erro.message, dados: [], totais: { valorBruto: 0, deducoes: 0, valorLiquido: 0 } };
+  }
+}
+
+// ========================================
+// BUSCAR ANOS DISPONÍVEIS RH
+// ========================================
+export async function buscarAnosDisponiveisRH() {
+  try {
+    let allData: any[] = [];
+    let from = 0;
+    const pageSize = 1000;
+    let hasMore = true;
+
+    while (hasMore) {
+      const { data, error } = await supabase.from('cma_rh').select('data').range(from, from + pageSize - 1);
+      if (error) throw error;
+      if (data && data.length > 0) {
+        allData = allData.concat(data);
+        from += pageSize;
+        if (data.length < pageSize) hasMore = false;
+      } else {
+        hasMore = false;
+      }
+    }
+
+    return [...new Set(allData.map(item => new Date(item.data).getFullYear()).filter(a => !isNaN(a)))].sort((a, b) => b - a);
+  } catch (erro) {
+    console.error('Erro ao buscar anos RH:', erro);
+    return [];
+  }
+}
+
+// ========================================
+// BUSCAR FILTROS DISPONÍVEIS RH
+// ========================================
+export async function buscarFiltrosDisponiveisRH(filtrosAtivos?: Partial<FiltrosRH>) {
+  try {
+    let query = supabase.from('cma_rh').select('categoria, vinculo, servidor');
+
+    if (filtrosAtivos) {
+      if (filtrosAtivos.dataInicial && filtrosAtivos.dataFinal) {
+        query = query.gte('data', filtrosAtivos.dataInicial).lte('data', filtrosAtivos.dataFinal);
+      } else if (filtrosAtivos.mes && filtrosAtivos.ano) {
+        const mesNum = String(filtrosAtivos.mes).padStart(2, '0');
+        const dataInicio = `${filtrosAtivos.ano}-${mesNum}-01`;
+        let proximoMes = parseInt(filtrosAtivos.mes) + 1;
+        let proximoAno = parseInt(filtrosAtivos.ano);
+        if (proximoMes > 12) { proximoMes = 1; proximoAno += 1; }
+        const dataFim = `${proximoAno}-${String(proximoMes).padStart(2, '0')}-01`;
+        query = query.gte('data', dataInicio).lt('data', dataFim);
+      } else if (filtrosAtivos.ano && !filtrosAtivos.mes) {
+        query = query.gte('data', `${filtrosAtivos.ano}-01-01`).lt('data', `${parseInt(filtrosAtivos.ano) + 1}-01-01`);
+      }
+      if (filtrosAtivos.categoria) query = query.eq('categoria', filtrosAtivos.categoria);
+      if (filtrosAtivos.vinculo) query = query.eq('vinculo', filtrosAtivos.vinculo);
+      if (filtrosAtivos.servidor) query = query.eq('servidor', filtrosAtivos.servidor);
+      if (filtrosAtivos.docCaixa) query = query.ilike('doc_caixa', `%${filtrosAtivos.docCaixa}%`);
+      if (filtrosAtivos.descricao) query = query.ilike('descricao', `%${filtrosAtivos.descricao}%`);
+    }
+
+    let allData: any[] = [];
+    let from = 0;
+    const pageSize = 1000;
+    let hasMore = true;
+
+    while (hasMore) {
+      const { data, error } = await query.range(from, from + pageSize - 1);
+      if (error) throw error;
+      if (data && data.length > 0) {
+        allData = allData.concat(data);
+        from += pageSize;
+        if (data.length < pageSize) hasMore = false;
+      } else {
+        hasMore = false;
+      }
+    }
+
+    return {
+      categorias: [...new Set(allData.map(item => item.categoria).filter(Boolean))].sort(),
+      vinculos: [...new Set(allData.map(item => item.vinculo).filter(Boolean))].sort(),
+      servidores: [...new Set(allData.map(item => item.servidor).filter(Boolean))].sort(),
+    };
+  } catch (erro) {
+    console.error('Erro ao buscar filtros RH:', erro);
+    return { categorias: [], vinculos: [], servidores: [] };
+  }
+}

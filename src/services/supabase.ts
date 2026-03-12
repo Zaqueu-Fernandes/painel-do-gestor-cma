@@ -91,6 +91,27 @@ export interface Totais {
 }
 
 // ========================================
+// TIPOS RH
+// ========================================
+export interface FiltrosRH {
+  dataInicial: string;
+  dataFinal: string;
+  mes: string;
+  ano: string;
+  categoria: string;
+  vinculo: string;
+  servidor: string;
+  docCaixa: string;
+  descricao: string;
+}
+
+export interface TotaisRH {
+  valorBruto: number;
+  deducoes: number;
+  valorLiquido: number;
+}
+
+// ========================================
 // BUSCAR DADOS DA TABELA BASE
 // ========================================
 export async function buscarDadosBase(filtros: Filtros = {} as Filtros) {

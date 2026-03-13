@@ -24,6 +24,17 @@ const TabelaRH = ({ dados }: TabelaRHProps) => {
     return d.toLocaleDateString('pt-BR');
   };
 
+  const formatarCompetencia = (valor: string) => {
+    if (!valor) return '-';
+    // Try to parse as date
+    const d = new Date(valor);
+    if (!isNaN(d.getTime())) {
+      return `${String(d.getMonth() + 1).padStart(2, '0')}/${d.getFullYear()}`;
+    }
+    // If already in some text format, try to extract month/year
+    return valor;
+  };
+
   const ordenarDados = (dados: any[], coluna: string, ordem: string) => {
     const dadosClone = [...dados];
     dadosClone.sort((a, b) => {

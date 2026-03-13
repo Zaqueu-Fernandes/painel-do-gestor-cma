@@ -56,10 +56,10 @@ const Dashboard = ({ usuario, setUsuario }: DashboardProps) => {
           {abas.map(aba => (
             <button
               key={aba.id}
-              className={`py-3 md:py-4 px-4 md:px-8 bg-transparent border-b-[3px] text-sm md:text-base font-medium cursor-pointer transition-all flex items-center gap-2 whitespace-nowrap ${
+              className={`py-3 md:py-4 px-4 md:px-8 border-b-[3px] text-sm md:text-base font-semibold cursor-pointer transition-all flex items-center gap-2 whitespace-nowrap ${
                 abaAtiva === aba.id
-                  ? 'border-green-800 text-green-800'
-                  : 'border-transparent text-gray-700 hover:bg-gray-50'
+                  ? 'border-green-800 text-green-800 bg-green-50'
+                  : 'border-transparent text-gray-600 hover:bg-gray-100 hover:text-green-800 bg-transparent'
               }`}
               onClick={() => setAbaAtiva(aba.id)}
             >

@@ -81,10 +81,12 @@ const Login = ({ setUsuario }: LoginProps) => {
           <i className="fas fa-lock mr-2 text-green-800"></i> Acesso ao Painel
         </h2>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} autoComplete="on">
           <div className="mb-4">
             <input
               type="email"
+              name="email"
+              autoComplete="username"
               placeholder="E-mail"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -96,6 +98,8 @@ const Login = ({ setUsuario }: LoginProps) => {
           <div className="mb-4">
             <input
               type="password"
+              name="password"
+              autoComplete="current-password"
               placeholder="Senha"
               value={senha}
               onChange={(e) => setSenha(e.target.value)}

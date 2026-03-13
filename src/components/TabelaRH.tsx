@@ -127,7 +127,7 @@ const TabelaRH = ({ dados }: TabelaRHProps) => {
               <tr key={index} className="border-b border-gray-200 transition-colors hover:bg-gray-50">
                 <td className="p-3">{formatarData(item.data)}</td>
                 <td className="p-3">{item.doc_caixa || '-'}</td>
-                <td className="p-3">{item.mes_competencia || '-'}</td>
+                <td className="p-3">{formatarCompetencia(item.mes_competencia)}</td>
                 <td className="p-3">{item.categoria || '-'}</td>
                 <td className="p-3">{item.vinculo || '-'}</td>
                 <td className="p-3">{item.servidor || '-'}</td>

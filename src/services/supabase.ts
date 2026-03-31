@@ -518,3 +518,120 @@ export async function buscarFiltrosDisponiveisRH(filtrosAtivos?: Partial<Filtros
     return { categorias: [], vinculos: [], servidores: [] };
   }
 }
+
+// ========================================
+// ADMIN EMAIL
+// ========================================
+const ADMIN_EMAIL = 'zaqueufernandes@gmail.com';
+
+export function isAdmin(usuario: any): boolean {
+  return usuario?.email?.toLowerCase() === ADMIN_EMAIL;
+}
+
+// ========================================
+// LOGS DE ATIVIDADE
+// ========================================
+export interface LogAtividade {
+  id?: number;
+  user_email: string;
+  user_nome: string;
+  tipo: 'login' | 'logout' | 'navegacao';
+  tela: string;
+  session_id: string;
+  created_at?: string;
+}
+
+function gerarSessionId(): string {
+  return `${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
+}
+
+let currentSessionId: string | null = null;
+
+export function getSessionId(): string {
+  if (!currentSessionId) {
+    currentSessionId = gerarSessionId();
+  }
+  return currentSessionId;
+}
+
+export function resetSessionId(): void {
+  currentSessionId = null;
+}
+
+export async function registrarLog(
+  usuario: any,
+  tipo: 'login' | 'logout' | 'navegacao',
+  tela: string
+) {
+  try {
+    if (!usuario?.email) return;
+    
+    const sessionId = tipo === 'login' ? gerarSessionId() : getSessionId();
+    if (tipo === 'login') {
+      currentSessionId = sessionId;
+    }
+
+    const { error } = await supabase.from('cma_logs').insert([{
+      user_email: usuario.email,
+      user_nome: usuario.nome || 'Desconhecido',
+      tipo,
+      tela,
+      session_id: sessionId,
+    }]);
+
+    if (error) {
+      console.warn('Erro ao registrar log (tabela pode não existir):', error.message);
+    }
+  } catch (e) {
+    console.warn('Erro ao registrar log:', e);
+  }
+}
+
+export async function buscarLogs(filtros?: {
+  email?: string;
+  dataInicial?: string;
+  dataFinal?: string;
+  tipo?: string;
+}) {
+  try {
+    let query = supabase
+      .from('cma_logs')
+      .select('*')
+      .order('created_at', { ascending: false })
+      .limit(500);
+
+    if (filtros?.email) {
+      query = query.eq('user_email', filtros.email);
+    }
+    if (filtros?.dataInicial) {
+      query = query.gte('created_at', filtros.dataInicial);
+    }
+    if (filtros?.dataFinal) {
+      query = query.lte('created_at', filtros.dataFinal + 'T23:59:59');
+    }
+    if (filtros?.tipo) {
+      query = query.eq('tipo', filtros.tipo);
+    }
+
+    const { data, error } = await query;
+    if (error) throw error;
+    return { sucesso: true, dados: data || [] };
+  } catch (erro: any) {
+    console.error('Erro ao buscar logs:', erro);
+    return { sucesso: false, dados: [], mensagem: erro.message };
+  }
+}
+
+export async function buscarUsuarios() {
+  try {
+    const { data, error } = await supabase
+      .from('cma_usuarios')
+      .select('id, nome, email, cargo, status')
+      .order('nome');
+    if (error) throw error;
+    return { sucesso: true, dados: data || [] };
+  } catch (erro: any) {
+    console.error('Erro ao buscar usuários:', erro);
+    return { sucesso: false, dados: [], mensagem: erro.message };
+  }
+}

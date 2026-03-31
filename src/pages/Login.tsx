@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { supabase } from '../services/supabase';
+import { supabase, registrarLog } from '../services/supabase';
 
 interface LoginProps {
   setUsuario: (u: any) => void;
@@ -54,6 +54,7 @@ const Login = ({ setUsuario }: LoginProps) => {
       }
 
       setUsuario(data);
+      registrarLog(data, 'login', 'Login');
       navigate('/dashboard');
     } catch (error) {
       console.error('Erro no login:', error);

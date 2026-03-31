@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Digitalizacao from './Digitalizacao';
 import RecursosHumanos from './RecursosHumanos';
-import { Filtros as FiltrosType, FiltrosRH as FiltrosRHType } from '../services/supabase';
+import AdminPanel from './AdminPanel';
+import { Filtros as FiltrosType, FiltrosRH as FiltrosRHType, isAdmin, registrarLog } from '../services/supabase';
 
 interface DashboardProps {
   usuario: any;
@@ -43,7 +44,6 @@ const PaginaEmDesenvolvimento = ({ onVoltar }: { onVoltar: () => void }) => {
   );
 };
 
-// Breadcrumb component
 const Breadcrumb = ({ items }: { items: { label: string; onClick?: () => void }[] }) => (
   <nav aria-label="Navegação de trilha" className="mb-4">
     <ol className="flex items-center gap-1.5 text-sm text-gray-500 flex-wrap">
@@ -77,28 +77,24 @@ const Dashboard = ({ usuario, setUsuario }: DashboardProps) => {
   const [departamentoAtivo, setDepartamentoAtivo] = useState<string | null>(null);
 
   const [filtros, setFiltros] = useState<FiltrosType>({
-    dataInicial: '',
-    dataFinal: '',
-    mes: '',
-    ano: '',
-    natureza: 'TODOS',
-    categoria: '',
-    credor: '',
-    docCaixa: '',
-    descricao: ''
+    dataInicial: '', dataFinal: '', mes: '', ano: '',
+    natureza: 'TODOS', categoria: '', credor: '', docCaixa: '', descricao: ''
   });
 
   const [filtrosRH, setFiltrosRH] = useState<FiltrosRHType>({
-    dataInicial: '',
-    dataFinal: '',
-    mes: '',
-    ano: '',
-    categoria: '',
-    vinculo: '',
-    servidor: '',
-    docCaixa: '',
-    descricao: ''
+    dataInicial: '', dataFinal: '', mes: '', ano: '',
+    categoria: '', vinculo: '', servidor: '', docCaixa: '', descricao: ''
   });
+
+  // Log de navegação ao mudar de departamento
+  useEffect(() => {
+    if (departamentoAtivo) {
+      const depLabel = departamentoAtivo === 'admin'
+        ? 'Painel Admin'
+        : departamentos.find(d => d.id === departamentoAtivo)?.label || departamentoAtivo;
+      registrarLog(usuario, 'navegacao', depLabel);
+    }
+  }, [departamentoAtivo]);
 
   const fazerLogout = () => {
     setUsuario(null);
@@ -109,9 +105,9 @@ const Dashboard = ({ usuario, setUsuario }: DashboardProps) => {
     setDepartamentoAtivo(null);
   };
 
-  const depAtual = departamentos.find(d => d.id === departamentoAtivo);
+  const adminUser = isAdmin(usuario);
 
-  // Tela principal: seleção de departamentos
+  // Tela principal
   if (!departamentoAtivo) {
     return (
       <div className="bg-gray-50 min-h-[calc(100vh-200px)] flex flex-col items-center justify-center py-10 px-4">
@@ -135,12 +131,33 @@ const Dashboard = ({ usuario, setUsuario }: DashboardProps) => {
               <span className="text-xs md:text-sm opacity-70 text-center leading-tight">{dep.descricao}</span>
             </button>
           ))}
+
+          {/* Admin Card - só aparece para admin */}
+          {adminUser && (
+            <button
+              onClick={() => setDepartamentoAtivo('admin')}
+              className="bg-gradient-to-br from-gray-700 to-gray-900 text-white rounded-xl p-6 md:p-8 flex flex-col items-center gap-3 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 cursor-pointer group border-2 border-amber-400/50 relative overflow-hidden"
+              aria-label="Acessar Painel do Administrador"
+            >
+              <div className="absolute top-2 right-2 px-2 py-0.5 bg-amber-400 text-gray-900 text-[10px] font-bold rounded-full">
+                ADMIN
+              </div>
+              <i className="fas fa-user-shield text-4xl md:text-5xl opacity-90 group-hover:scale-110 transition-transform text-amber-300" aria-hidden="true"></i>
+              <span className="text-base md:text-lg font-bold text-center">Painel Admin</span>
+              <span className="text-xs md:text-sm opacity-70 text-center leading-tight">Logs de atividade e gestão de usuários</span>
+            </button>
+          )}
         </div>
       </div>
     );
   }
 
-  // Departamentos com conteúdo implementado
+  // Admin
+  if (departamentoAtivo === 'admin' && adminUser) {
+    return <AdminPanel usuario={usuario} onVoltar={voltarParaDepartamentos} />;
+  }
+
+  // Digitalização
   if (departamentoAtivo === 'digitalizacao') {
     return (
       <div className="bg-gray-50 min-h-[calc(100vh-200px)] animate-fade-in">
@@ -162,6 +179,7 @@ const Dashboard = ({ usuario, setUsuario }: DashboardProps) => {
     );
   }
 
+  // RH
   if (departamentoAtivo === 'rh') {
     return (
       <div className="bg-gray-50 min-h-[calc(100vh-200px)] animate-fade-in">
@@ -183,7 +201,6 @@ const Dashboard = ({ usuario, setUsuario }: DashboardProps) => {
     );
   }
 
-  // Departamentos em desenvolvimento
   return <PaginaEmDesenvolvimento onVoltar={voltarParaDepartamentos} />;
 };
 

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Digitalizacao from './Digitalizacao';
-import AnaliseFinanceira from './AnaliseFinanceira';
 import RecursosHumanos from './RecursosHumanos';
 import { Filtros as FiltrosType, FiltrosRH as FiltrosRHType } from '../services/supabase';
 

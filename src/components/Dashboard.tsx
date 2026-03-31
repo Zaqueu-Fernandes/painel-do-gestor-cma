@@ -15,7 +15,7 @@ const PaginaEmDesenvolvimento = ({ onVoltar }: { onVoltar: () => void }) => {
       <div className="p-4 md:p-8 max-w-[1400px] mx-auto w-full">
         <button
           onClick={onVoltar}
-          className="mb-6 px-5 py-2.5 bg-green-800 text-white hover:bg-green-700 rounded-lg font-bold flex items-center gap-2 transition-colors shadow-md"
+          className="mb-6 px-5 py-2.5 bg-green-50 text-green-800 border border-green-200 hover:bg-green-100 rounded-lg font-semibold flex items-center gap-2 transition-colors shadow-sm"
         >
           <i className="fas fa-arrow-left"></i> Voltar aos Departamentos
         </button>
@@ -124,7 +124,7 @@ const Dashboard = ({ usuario, setUsuario }: DashboardProps) => {
         <div className="p-4 md:p-8 max-w-[1400px] mx-auto">
           <button
             onClick={voltarParaDepartamentos}
-            className="mb-4 px-5 py-2.5 bg-green-800 text-white hover:bg-green-700 rounded-lg font-bold flex items-center gap-2 transition-colors shadow-md"
+            className="mb-4 px-5 py-2.5 bg-green-50 text-green-800 border border-green-200 hover:bg-green-100 rounded-lg font-semibold flex items-center gap-2 transition-colors shadow-sm"
           >
             <i className="fas fa-arrow-left"></i> Voltar aos Departamentos
           </button>
@@ -140,7 +140,7 @@ const Dashboard = ({ usuario, setUsuario }: DashboardProps) => {
         <div className="p-4 md:p-8 max-w-[1400px] mx-auto">
           <button
             onClick={voltarParaDepartamentos}
-            className="mb-4 px-5 py-2.5 bg-green-800 text-white hover:bg-green-700 rounded-lg font-bold flex items-center gap-2 transition-colors shadow-md"
+            className="mb-4 px-5 py-2.5 bg-green-50 text-green-800 border border-green-200 hover:bg-green-100 rounded-lg font-semibold flex items-center gap-2 transition-colors shadow-sm"
           >
             <i className="fas fa-arrow-left"></i> Voltar aos Departamentos
           </button>

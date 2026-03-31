@@ -117,7 +117,7 @@ export interface TotaisRH {
 export async function buscarDadosBase(filtros: Filtros = {} as Filtros) {
   try {
     let query = supabase
-      .from('cma_despesas')
+      .from('cma_despesas2021_2024')
       .select('data, doc_caixa, natureza, categoria, credor, descricao, receitas, despesa_bruta, deducoes, despesa_liquida, processo')
       .order('data', { ascending: true });
 
@@ -217,7 +217,7 @@ export async function buscarAnosDisponiveis() {
 
     while (hasMore) {
       const { data, error } = await supabase
-        .from('cma_despesas')
+        .from('cma_despesas2021_2024')
         .select('data')
         .range(from, from + pageSize - 1);
 
@@ -249,7 +249,7 @@ export async function buscarAnosDisponiveis() {
 export async function buscarFiltrosDisponiveis(filtrosAtivos?: Partial<Filtros>) {
   try {
     let query = supabase
-      .from('cma_despesas')
+      .from('cma_despesas2021_2024')
       .select('categoria, credor');
 
     // Aplicar filtros ativos para tornar os filtros dinâmicos

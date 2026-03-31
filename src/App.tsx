@@ -1,5 +1,6 @@
 import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import { registrarLog, resetSessionId } from './services/supabase';
 import Login from './pages/Login';
 import Cadastro from './pages/Cadastro';
 import Confirmacao from './pages/Confirmacao';

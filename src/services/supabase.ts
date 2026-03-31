@@ -217,7 +217,7 @@ export async function buscarAnosDisponiveis() {
 
     while (hasMore) {
       const { data, error } = await supabase
-        .from('cma_base')
+        .from('cma_despesas')
         .select('data')
         .range(from, from + pageSize - 1);
 

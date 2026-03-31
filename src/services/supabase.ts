@@ -249,7 +249,7 @@ export async function buscarAnosDisponiveis() {
 export async function buscarFiltrosDisponiveis(filtrosAtivos?: Partial<Filtros>) {
   try {
     let query = supabase
-      .from('cma_base')
+      .from('cma_despesas')
       .select('categoria, credor');
 
     // Aplicar filtros ativos para tornar os filtros dinâmicos

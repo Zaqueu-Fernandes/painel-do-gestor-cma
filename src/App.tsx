@@ -26,7 +26,7 @@ function App() {
 
   return (
     <HashRouter>
-      <div className="w-full min-h-screen flex flex-col" style={{ background: 'linear-gradient(135deg, #1a472a 0%, #2d5016 100%)' }}>
+      <div className="w-full min-h-screen flex flex-col" style={{ background: 'linear-gradient(160deg, #0f2b1a 0%, #1a472a 40%, #234d2c 70%, #2d6a3e 100%)' }}>
         {/* Header */}
         <header className="bg-white shadow">
           <div className="flex items-center justify-center py-3 px-4 md:py-5 md:px-10 gap-3 md:gap-5 max-w-[1400px] mx-auto">

@@ -5,12 +5,42 @@ import CardsRH from './CardsRH';
 import TabelaRH from './TabelaRH';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import { Skeleton } from './ui/skeleton';
 
 interface RecursosHumanosProps {
   fazerLogout: () => void;
   filtrosRH: FiltrosRHType;
   setFiltrosRH: React.Dispatch<React.SetStateAction<FiltrosRHType>>;
 }
+
+const SkeletonLoader = () => (
+  <div className="space-y-4 animate-fade-in">
+    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+      {[1, 2, 3].map(i => (
+        <div key={i} className="bg-white rounded-xl p-5 shadow-sm">
+          <Skeleton className="h-4 w-20 mb-3" />
+          <Skeleton className="h-8 w-32" />
+        </div>
+      ))}
+    </div>
+    <div className="bg-white rounded-xl p-5 shadow-sm space-y-3">
+      <Skeleton className="h-5 w-40" />
+      {[1, 2, 3, 4, 5].map(i => (
+        <Skeleton key={i} className="h-10 w-full" />
+      ))}
+    </div>
+  </div>
+);
+
+const EmptyState = () => (
+  <div className="text-center py-16 animate-fade-in">
+    <div className="bg-gray-100 rounded-full w-24 h-24 flex items-center justify-center mx-auto mb-4">
+      <i className="fas fa-users text-4xl text-gray-300" aria-hidden="true"></i>
+    </div>
+    <p className="text-lg text-gray-500 mb-2">Nenhum registro encontrado</p>
+    <p className="text-sm text-gray-400">Tente ajustar os filtros para encontrar resultados</p>
+  </div>
+);
 
 const RecursosHumanos = ({ fazerLogout, filtrosRH, setFiltrosRH }: RecursosHumanosProps) => {
   const [dados, setDados] = useState<any[]>([]);
@@ -156,35 +186,28 @@ const RecursosHumanos = ({ fazerLogout, filtrosRH, setFiltrosRH }: RecursosHuman
   };
 
   return (
-    <div className="p-4 md:p-8 max-w-[1400px] mx-auto">
+    <div className="p-4 md:p-8 max-w-[1400px] mx-auto animate-fade-in">
       <FiltrosRH filtros={filtrosRH} setFiltros={setFiltrosRH} fazerLogout={fazerLogout} />
       <CardsRH totais={totais} />
 
-      {loading && (
-        <div className="text-center py-16 text-gray-700">
-          <i className="fas fa-spinner fa-spin text-5xl text-green-800 mb-4"></i>
-          <p className="text-lg">Buscando dados na base...</p>
-        </div>
-      )}
+      {loading && <SkeletonLoader />}
 
-      {!loading && semDados && (
-        <div className="text-center py-16 text-gray-700">
-          <i className="fas fa-inbox text-5xl text-gray-300 mb-4"></i>
-          <p className="text-lg">Nenhum dado encontrado na base</p>
-        </div>
-      )}
+      {!loading && semDados && <EmptyState />}
 
       {!loading && !semDados && (
         <>
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-3">
             <h3 className="text-green-800 text-lg md:text-xl font-bold flex items-center gap-2">
-              <i className="fas fa-table"></i> Registros ({dados.length})
+              <i className="fas fa-table" aria-hidden="true"></i> Registros ({dados.length})
             </h3>
             <button onClick={exportarPDF} className="px-4 md:px-5 py-2 md:py-2.5 bg-green-800 text-white rounded-md font-bold transition-colors hover:bg-green-700 flex items-center gap-2 text-sm md:text-base">
-              <i className="fas fa-file-pdf"></i> Exportar PDF
+              <i className="fas fa-file-pdf" aria-hidden="true"></i> Exportar PDF
             </button>
           </div>
-          <TabelaRH dados={dados} />
+          <div className="overflow-x-auto -mx-4 md:mx-0 relative">
+            <div className="md:hidden absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-gray-50 to-transparent pointer-events-none z-10"></div>
+            <TabelaRH dados={dados} />
+          </div>
         </>
       )}
     </div>

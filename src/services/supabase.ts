@@ -117,7 +117,7 @@ export interface TotaisRH {
 export async function buscarDadosBase(filtros: Filtros = {} as Filtros) {
   try {
     let query = supabase
-      .from('cma_base')
+      .from('cma_despesas')
       .select('data, doc_caixa, natureza, categoria, credor, descricao, receitas, despesa_bruta, deducoes, despesa_liquida, processo')
       .order('data', { ascending: true });
 

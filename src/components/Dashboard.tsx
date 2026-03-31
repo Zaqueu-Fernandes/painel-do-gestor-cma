@@ -15,7 +15,7 @@ const PaginaEmDesenvolvimento = ({ onVoltar }: { onVoltar: () => void }) => {
       <div className="p-4 md:p-8 max-w-[1400px] mx-auto w-full">
         <button
           onClick={onVoltar}
-          className="mb-6 px-4 py-2 text-green-800 hover:bg-green-50 rounded-lg font-semibold flex items-center gap-2 transition-colors"
+          className="mb-6 px-5 py-2.5 bg-green-800 text-white hover:bg-green-700 rounded-lg font-bold flex items-center gap-2 transition-colors shadow-md"
         >
           <i className="fas fa-arrow-left"></i> Voltar aos Departamentos
         </button>

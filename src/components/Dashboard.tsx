@@ -45,7 +45,6 @@ const Dashboard = ({ usuario, setUsuario }: DashboardProps) => {
 
   const abas = [
     { id: 'digitalizacao', label: 'Digitalização', icon: 'fas fa-file-alt' },
-    { id: 'analise', label: 'Análise Financeira', icon: 'fas fa-chart-bar' },
     { id: 'rh', label: 'Recursos Humanos', icon: 'fas fa-users' },
   ];
 

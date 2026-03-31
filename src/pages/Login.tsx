@@ -54,6 +54,7 @@ const Login = ({ setUsuario }: LoginProps) => {
       }
 
       setUsuario(data);
+      registrarLog(data, 'login', 'Login');
       navigate('/dashboard');
     } catch (error) {
       console.error('Erro no login:', error);

@@ -21,9 +21,13 @@ function App() {
     }
   }, []);
 
-  const fazerLogout = () => {
+  const fazerLogout = useCallback(() => {
+    if (usuario) {
+      registrarLog(usuario, 'logout', 'Logout');
+    }
+    resetSessionId();
     setUsuario(null);
-  };
+  }, [usuario]);
 
   const RotaProtegida = ({ children }: { children: React.ReactNode }) => {
     return usuario ? <>{children}</> : <Navigate to="/login" />;

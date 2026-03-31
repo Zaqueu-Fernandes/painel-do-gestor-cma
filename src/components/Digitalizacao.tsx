@@ -316,7 +316,7 @@ const Digitalizacao = ({ fazerLogout, filtros, setFiltros }: DigitalizacaoProps)
         {/* Botão voltar */}
         <button
           onClick={voltarParaPeriodos}
-          className="mb-6 px-4 py-2 rounded-lg text-green-800 hover:bg-green-50 font-semibold flex items-center gap-2 transition-colors"
+          className="mb-6 px-4 py-2 rounded-lg bg-green-50 text-green-800 border border-green-200 hover:bg-green-100 font-semibold flex items-center gap-2 transition-colors shadow-sm"
         >
           <i className="fas fa-arrow-left"></i> Voltar aos períodos
         </button>

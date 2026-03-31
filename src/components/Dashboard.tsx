@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Digitalizacao from './Digitalizacao';
-import AnaliseFinanceira from './AnaliseFinanceira';
 import RecursosHumanos from './RecursosHumanos';
 import { Filtros as FiltrosType, FiltrosRH as FiltrosRHType } from '../services/supabase';
 
@@ -45,7 +44,6 @@ const Dashboard = ({ usuario, setUsuario }: DashboardProps) => {
 
   const abas = [
     { id: 'digitalizacao', label: 'Digitalização', icon: 'fas fa-file-alt' },
-    { id: 'analise', label: 'Análise Financeira', icon: 'fas fa-chart-bar' },
     { id: 'rh', label: 'Recursos Humanos', icon: 'fas fa-users' },
   ];
 
@@ -71,9 +69,6 @@ const Dashboard = ({ usuario, setUsuario }: DashboardProps) => {
 
       {abaAtiva === 'digitalizacao' && (
         <Digitalizacao fazerLogout={fazerLogout} filtros={filtros} setFiltros={setFiltros} />
-      )}
-      {abaAtiva === 'analise' && (
-        <AnaliseFinanceira fazerLogout={fazerLogout} filtros={filtros} setFiltros={setFiltros} />
       )}
       {abaAtiva === 'rh' && (
         <RecursosHumanos fazerLogout={fazerLogout} filtrosRH={filtrosRH} setFiltrosRH={setFiltrosRH} />

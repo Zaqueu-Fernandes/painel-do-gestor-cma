@@ -70,9 +70,6 @@ const Dashboard = ({ usuario, setUsuario }: DashboardProps) => {
       {abaAtiva === 'digitalizacao' && (
         <Digitalizacao fazerLogout={fazerLogout} filtros={filtros} setFiltros={setFiltros} />
       )}
-      {abaAtiva === 'analise' && (
-        <AnaliseFinanceira fazerLogout={fazerLogout} filtros={filtros} setFiltros={setFiltros} />
-      )}
       {abaAtiva === 'rh' && (
         <RecursosHumanos fazerLogout={fazerLogout} filtrosRH={filtrosRH} setFiltrosRH={setFiltrosRH} />
       )}

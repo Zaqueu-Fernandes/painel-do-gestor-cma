@@ -307,39 +307,8 @@ const Digitalizacao = ({ fazerLogout, filtros, setFiltros, periodo }: Digitaliza
     doc.save(`analise-financeira-${new Date().toISOString().split('T')[0]}.pdf`);
   };
 
-  const voltarParaPeriodos = () => {
-    setTela('periodos');
-    setSubTela('documentos');
-  };
-
-  // ========== TELA 1: Seleção de Período (centralizada) ==========
-  if (tela === 'periodos') {
-    return (
-      <div className="flex flex-col items-center justify-center py-20 px-4 min-h-[calc(100vh-300px)] animate-fade-in">
-        <h2 className="text-2xl md:text-3xl font-bold text-green-800 mb-2 text-center">
-          <i className="fas fa-file-alt mr-2" aria-hidden="true"></i>Digitalização
-        </h2>
-        <p className="text-gray-500 mb-10 text-center">Selecione o período desejado</p>
-        <div className="flex flex-col sm:flex-row gap-4 w-full max-w-lg">
-          <button
-            onClick={() => setTela('sub-2021')}
-            className="flex-1 py-5 px-8 rounded-xl font-bold text-base md:text-lg bg-green-800 text-white shadow-lg hover:bg-green-700 hover:scale-105 transition-all flex items-center justify-center gap-3"
-          >
-            <i className="fas fa-calendar-alt" aria-hidden="true"></i> Período: 2021 a 2024
-          </button>
-          <button
-            onClick={() => setTela('sub-2025')}
-            className="flex-1 py-5 px-8 rounded-xl font-bold text-base md:text-lg bg-green-800 text-white shadow-lg hover:bg-green-700 hover:scale-105 transition-all flex items-center justify-center gap-3"
-          >
-            <i className="fas fa-calendar-plus" aria-hidden="true"></i> Período: 2025 em diante
-          </button>
-        </div>
-      </div>
-    );
-  }
-
   // ========== TELA 2025+: Em desenvolvimento ==========
-  if (tela === 'sub-2025') {
+  if (periodo === 'sub-2025') {
     return (
       <div className="p-4 md:p-8 max-w-[1400px] mx-auto animate-fade-in">
         <button

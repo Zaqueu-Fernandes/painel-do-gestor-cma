@@ -12,6 +12,7 @@ interface DigitalizacaoProps {
   fazerLogout: () => void;
   filtros: FiltrosType;
   setFiltros: React.Dispatch<React.SetStateAction<FiltrosType>>;
+  periodo: 'sub-2021' | 'sub-2025';
 }
 
 const PaginaEmDesenvolvimento = () => {
@@ -81,11 +82,9 @@ const nomeMes = (mes: string) => {
   return meses[mes] || mes;
 };
 
-type Tela = 'periodos' | 'sub-2021' | 'sub-2025';
 type SubTela = 'documentos' | 'analise';
 
-const Digitalizacao = ({ fazerLogout, filtros, setFiltros }: DigitalizacaoProps) => {
-  const [tela, setTela] = useState<Tela>('periodos');
+const Digitalizacao = ({ fazerLogout, filtros, setFiltros, periodo }: DigitalizacaoProps) => {
   const [subTela, setSubTela] = useState<SubTela>('documentos');
 
   // State for Documentos
@@ -100,13 +99,13 @@ const Digitalizacao = ({ fazerLogout, filtros, setFiltros }: DigitalizacaoProps)
   const [semDadosGraficos, setSemDadosGraficos] = useState(false);
 
   useEffect(() => {
-    if (tela === 'sub-2021' && subTela === 'documentos') {
+    if (periodo === 'sub-2021' && subTela === 'documentos') {
       carregarDados();
     }
-    if (tela === 'sub-2021' && subTela === 'analise') {
+    if (periodo === 'sub-2021' && subTela === 'analise') {
       carregarDadosGraficos();
     }
-  }, [filtros, tela, subTela]);
+  }, [filtros, periodo, subTela]);
 
   const carregarDados = async () => {
     setLoading(true);
@@ -308,48 +307,10 @@ const Digitalizacao = ({ fazerLogout, filtros, setFiltros }: DigitalizacaoProps)
     doc.save(`analise-financeira-${new Date().toISOString().split('T')[0]}.pdf`);
   };
 
-  const voltarParaPeriodos = () => {
-    setTela('periodos');
-    setSubTela('documentos');
-  };
-
-  // ========== TELA 1: Seleção de Período (centralizada) ==========
-  if (tela === 'periodos') {
-    return (
-      <div className="flex flex-col items-center justify-center py-20 px-4 min-h-[calc(100vh-300px)] animate-fade-in">
-        <h2 className="text-2xl md:text-3xl font-bold text-green-800 mb-2 text-center">
-          <i className="fas fa-file-alt mr-2" aria-hidden="true"></i>Digitalização
-        </h2>
-        <p className="text-gray-500 mb-10 text-center">Selecione o período desejado</p>
-        <div className="flex flex-col sm:flex-row gap-4 w-full max-w-lg">
-          <button
-            onClick={() => setTela('sub-2021')}
-            className="flex-1 py-5 px-8 rounded-xl font-bold text-base md:text-lg bg-green-800 text-white shadow-lg hover:bg-green-700 hover:scale-105 transition-all flex items-center justify-center gap-3"
-          >
-            <i className="fas fa-calendar-alt" aria-hidden="true"></i> Período: 2021 a 2024
-          </button>
-          <button
-            onClick={() => setTela('sub-2025')}
-            className="flex-1 py-5 px-8 rounded-xl font-bold text-base md:text-lg bg-green-800 text-white shadow-lg hover:bg-green-700 hover:scale-105 transition-all flex items-center justify-center gap-3"
-          >
-            <i className="fas fa-calendar-plus" aria-hidden="true"></i> Período: 2025 em diante
-          </button>
-        </div>
-      </div>
-    );
-  }
-
   // ========== TELA 2025+: Em desenvolvimento ==========
-  if (tela === 'sub-2025') {
+  if (periodo === 'sub-2025') {
     return (
       <div className="p-4 md:p-8 max-w-[1400px] mx-auto animate-fade-in">
-        <button
-          onClick={voltarParaPeriodos}
-          className="mb-6 px-4 py-2 rounded-lg bg-green-50 text-green-700 border border-green-200 hover:bg-green-100 font-semibold flex items-center gap-2 transition-colors shadow-sm"
-          aria-label="Voltar aos períodos"
-        >
-          <i className="fas fa-arrow-left" aria-hidden="true"></i> Voltar aos períodos
-        </button>
 
         <div className="bg-white p-3 rounded-xl shadow mb-6">
           <div className="flex gap-3">
@@ -384,13 +345,6 @@ const Digitalizacao = ({ fazerLogout, filtros, setFiltros }: DigitalizacaoProps)
   // ========== TELA 2021-2024: Documentos / Análise Financeira ==========
   return (
     <div className="p-4 md:p-8 max-w-[1400px] mx-auto animate-fade-in">
-      <button
-        onClick={voltarParaPeriodos}
-        className="mb-6 px-4 py-2 rounded-lg bg-green-50 text-green-700 border border-green-200 hover:bg-green-100 font-semibold flex items-center gap-2 transition-colors shadow-sm"
-        aria-label="Voltar aos períodos"
-      >
-        <i className="fas fa-arrow-left" aria-hidden="true"></i> Voltar aos períodos
-      </button>
 
       <div className="bg-white p-3 rounded-xl shadow mb-6">
         <div className="flex gap-3">

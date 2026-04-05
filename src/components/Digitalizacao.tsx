@@ -99,13 +99,13 @@ const Digitalizacao = ({ fazerLogout, filtros, setFiltros, periodo }: Digitaliza
   const [semDadosGraficos, setSemDadosGraficos] = useState(false);
 
   useEffect(() => {
-    if (tela === 'sub-2021' && subTela === 'documentos') {
+    if (periodo === 'sub-2021' && subTela === 'documentos') {
       carregarDados();
     }
-    if (tela === 'sub-2021' && subTela === 'analise') {
+    if (periodo === 'sub-2021' && subTela === 'analise') {
       carregarDadosGraficos();
     }
-  }, [filtros, tela, subTela]);
+  }, [filtros, periodo, subTela]);
 
   const carregarDados = async () => {
     setLoading(true);

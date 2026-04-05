@@ -163,24 +163,22 @@ const Dashboard = ({ usuario, setUsuario }: DashboardProps) => {
     return (
       <div className="bg-gray-50 min-h-[calc(100vh-200px)] animate-fade-in">
         <div className="p-4 md:p-8 max-w-[1400px] mx-auto">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
-            <div className="flex items-center gap-3">
-              <button
-                onClick={voltarParaDepartamentos}
-                className="p-2 rounded-lg bg-green-50 text-green-600 border border-green-100 hover:bg-green-100 transition-colors shadow-sm"
-                aria-label="Voltar aos Departamentos"
-              >
-                <i className="fas fa-arrow-left text-sm" aria-hidden="true"></i>
-              </button>
-              <Breadcrumb items={[
-                { label: 'Departamentos', onClick: voltarParaDepartamentos },
-                { label: 'Digitalização' }
-              ]} />
-            </div>
-            <div className="flex items-center gap-2 bg-white rounded-lg p-1 shadow-sm border border-gray-100">
+          <div className="flex items-center gap-3 mb-4 flex-wrap">
+            <button
+              onClick={voltarParaDepartamentos}
+              className="p-2 rounded-lg bg-green-50 text-green-600 border border-green-100 hover:bg-green-100 transition-colors shadow-sm"
+              aria-label="Voltar aos Departamentos"
+            >
+              <i className="fas fa-arrow-left text-sm" aria-hidden="true"></i>
+            </button>
+            <Breadcrumb items={[
+              { label: 'Departamentos', onClick: voltarParaDepartamentos },
+              { label: 'Digitalização' }
+            ]} />
+            <div className="flex items-center gap-1 bg-white rounded-lg p-1 shadow-sm border border-gray-100">
               <button
                 onClick={() => setPeriodoDigitalizacao('sub-2021')}
-                className={`px-4 py-2 rounded-md text-xs md:text-sm font-semibold transition-all flex items-center gap-1.5 ${
+                className={`px-3 py-1.5 rounded-md text-xs md:text-sm font-semibold transition-all flex items-center gap-1.5 ${
                   periodoDigitalizacao === 'sub-2021'
                     ? 'bg-green-700 text-white shadow-md'
                     : 'text-gray-500 hover:text-green-700 hover:bg-green-50'
@@ -190,7 +188,7 @@ const Dashboard = ({ usuario, setUsuario }: DashboardProps) => {
               </button>
               <button
                 onClick={() => setPeriodoDigitalizacao('sub-2025')}
-                className={`px-4 py-2 rounded-md text-xs md:text-sm font-semibold transition-all flex items-center gap-1.5 ${
+                className={`px-3 py-1.5 rounded-md text-xs md:text-sm font-semibold transition-all flex items-center gap-1.5 ${
                   periodoDigitalizacao === 'sub-2025'
                     ? 'bg-green-700 text-white shadow-md'
                     : 'text-gray-500 hover:text-green-700 hover:bg-green-50'

@@ -82,11 +82,9 @@ const nomeMes = (mes: string) => {
   return meses[mes] || mes;
 };
 
-type Tela = 'periodos' | 'sub-2021' | 'sub-2025';
 type SubTela = 'documentos' | 'analise';
 
-const Digitalizacao = ({ fazerLogout, filtros, setFiltros }: DigitalizacaoProps) => {
-  const [tela, setTela] = useState<Tela>('periodos');
+const Digitalizacao = ({ fazerLogout, filtros, setFiltros, periodo }: DigitalizacaoProps) => {
   const [subTela, setSubTela] = useState<SubTela>('documentos');
 
   // State for Documentos

@@ -12,6 +12,7 @@ interface DigitalizacaoProps {
   fazerLogout: () => void;
   filtros: FiltrosType;
   setFiltros: React.Dispatch<React.SetStateAction<FiltrosType>>;
+  periodo: 'sub-2021' | 'sub-2025';
 }
 
 const PaginaEmDesenvolvimento = () => {

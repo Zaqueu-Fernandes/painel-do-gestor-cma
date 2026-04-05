@@ -75,6 +75,7 @@ const departamentos = [
 const Dashboard = ({ usuario, setUsuario }: DashboardProps) => {
   const navigate = useNavigate();
   const [departamentoAtivo, setDepartamentoAtivo] = useState<string | null>(null);
+  const [periodoDigitalizacao, setPeriodoDigitalizacao] = useState<'sub-2021' | 'sub-2025'>('sub-2021');
 
   const [filtros, setFiltros] = useState<FiltrosType>({
     dataInicial: '', dataFinal: '', mes: '', ano: '',

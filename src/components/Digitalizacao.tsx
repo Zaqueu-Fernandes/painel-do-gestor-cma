@@ -311,13 +311,6 @@ const Digitalizacao = ({ fazerLogout, filtros, setFiltros, periodo }: Digitaliza
   if (periodo === 'sub-2025') {
     return (
       <div className="p-4 md:p-8 max-w-[1400px] mx-auto animate-fade-in">
-        <button
-          onClick={voltarParaPeriodos}
-          className="mb-6 px-4 py-2 rounded-lg bg-green-50 text-green-700 border border-green-200 hover:bg-green-100 font-semibold flex items-center gap-2 transition-colors shadow-sm"
-          aria-label="Voltar aos períodos"
-        >
-          <i className="fas fa-arrow-left" aria-hidden="true"></i> Voltar aos períodos
-        </button>
 
         <div className="bg-white p-3 rounded-xl shadow mb-6">
           <div className="flex gap-3">

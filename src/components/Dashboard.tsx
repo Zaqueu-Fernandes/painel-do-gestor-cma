@@ -162,19 +162,45 @@ const Dashboard = ({ usuario, setUsuario }: DashboardProps) => {
     return (
       <div className="bg-gray-50 min-h-[calc(100vh-200px)] animate-fade-in">
         <div className="p-4 md:p-8 max-w-[1400px] mx-auto">
-          <Breadcrumb items={[
-            { label: 'Departamentos', onClick: voltarParaDepartamentos },
-            { label: 'Digitalização' }
-          ]} />
-          <button
-            onClick={voltarParaDepartamentos}
-            className="mb-4 px-5 py-2.5 bg-green-50 text-green-700 border border-green-200 hover:bg-green-100 rounded-lg font-semibold flex items-center gap-2 transition-colors shadow-sm"
-            aria-label="Voltar aos Departamentos"
-          >
-            <i className="fas fa-arrow-left" aria-hidden="true"></i> Voltar aos Departamentos
-          </button>
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+            <div className="flex items-center gap-3">
+              <button
+                onClick={voltarParaDepartamentos}
+                className="p-2 rounded-lg bg-green-50 text-green-600 border border-green-100 hover:bg-green-100 transition-colors shadow-sm"
+                aria-label="Voltar aos Departamentos"
+              >
+                <i className="fas fa-arrow-left text-sm" aria-hidden="true"></i>
+              </button>
+              <Breadcrumb items={[
+                { label: 'Departamentos', onClick: voltarParaDepartamentos },
+                { label: 'Digitalização' }
+              ]} />
+            </div>
+            <div className="flex items-center gap-2 bg-white rounded-lg p-1 shadow-sm border border-gray-100">
+              <button
+                onClick={() => setPeriodoDigitalizacao('sub-2021')}
+                className={`px-4 py-2 rounded-md text-xs md:text-sm font-semibold transition-all flex items-center gap-1.5 ${
+                  periodoDigitalizacao === 'sub-2021'
+                    ? 'bg-green-700 text-white shadow-md'
+                    : 'text-gray-500 hover:text-green-700 hover:bg-green-50'
+                }`}
+              >
+                <i className="fas fa-calendar-alt text-[10px]" aria-hidden="true"></i> 2021–2024
+              </button>
+              <button
+                onClick={() => setPeriodoDigitalizacao('sub-2025')}
+                className={`px-4 py-2 rounded-md text-xs md:text-sm font-semibold transition-all flex items-center gap-1.5 ${
+                  periodoDigitalizacao === 'sub-2025'
+                    ? 'bg-green-700 text-white shadow-md'
+                    : 'text-gray-500 hover:text-green-700 hover:bg-green-50'
+                }`}
+              >
+                <i className="fas fa-calendar-plus text-[10px]" aria-hidden="true"></i> 2025+
+              </button>
+            </div>
+          </div>
         </div>
-        <Digitalizacao fazerLogout={fazerLogout} filtros={filtros} setFiltros={setFiltros} />
+        <Digitalizacao fazerLogout={fazerLogout} filtros={filtros} setFiltros={setFiltros} periodo={periodoDigitalizacao} />
       </div>
     );
   }
